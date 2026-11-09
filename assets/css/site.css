@@ -612,7 +612,7 @@ html:not(.js) .plan__pipe { stroke-dashoffset: 0; }
 
 /* ------- Список товаров ------- */
 .listing { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: var(--gap-columns); align-items: start; }
-.filters { position: sticky; top: calc(var(--header-sticky) + var(--space-md)); max-height: calc(100dvh - var(--header-sticky) - var(--space-xl)); overflow-y: auto; scrollbar-width: thin; }
+.filters { position: sticky; top: calc(var(--header-sticky) + var(--space-md)); max-height: calc(100dvh - var(--header-sticky) - var(--space-xl)); overflow-y: auto; }
 .filters__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-sm); }
 .filters__title { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; letter-spacing: var(--tracking-display); }
 .filters__close, .filters__show { display: none; }
@@ -936,9 +936,9 @@ html:not(.js) .plan__pipe { stroke-dashoffset: 0; }
 .svc-hero__pic--flat img { top: 0; height: 100%; }
 .empty-cat__form .form-title { font-size: var(--text-section); }
 
-/* Горизонтальные ленты без полосы прокрутки: листаются стрелками, колесом, пальцем и с клавиатуры */
-.rail, .offer-grid, .seg, .subnav, .gallery__thumbs { scrollbar-width: none; }
-.rail::-webkit-scrollbar, .offer-grid::-webkit-scrollbar, .seg::-webkit-scrollbar, .subnav::-webkit-scrollbar, .gallery__thumbs::-webkit-scrollbar { display: none; }
+/* Ленты и панель фильтров без полосы прокрутки: листаются стрелками, колесом, пальцем и с клавиатуры */
+.rail, .offer-grid, .seg, .subnav, .gallery__thumbs, .filters { scrollbar-width: none; }
+.rail::-webkit-scrollbar, .offer-grid::-webkit-scrollbar, .seg::-webkit-scrollbar, .subnav::-webkit-scrollbar, .gallery__thumbs::-webkit-scrollbar, .filters::-webkit-scrollbar { display: none; }
 
 /* Ярлыки разделов под шапкой */
 .labels { background: var(--color-surface); border-bottom: 1px solid var(--color-rule); }
