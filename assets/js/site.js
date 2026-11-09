@@ -92,6 +92,13 @@
   }
 
   /* Главный экран: слайды только вручную */
+  // Панель менеджера закрывается кликом мимо и клавишей Esc
+  const mgr = $('.mgr');
+  if (mgr) {
+    document.addEventListener('click', (e) => { if (mgr.open && !mgr.contains(e.target)) mgr.open = false; });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') mgr.open = false; });
+  }
+
   const hero = $('[data-hero]');
   if (hero) {
     const slides = $$('[data-slide]', hero);
@@ -110,6 +117,16 @@
     $('[data-hero-prev]', hero).addEventListener('click', () => go(i - 1));
     $('[data-hero-next]', hero).addEventListener('click', () => go(i + 1));
     hero.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') go(i - 1); if (e.key === 'ArrowRight') go(i + 1); });
+    // Баннер листается сам и замирает, пока на нём курсор или фокус
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      let held = false;
+      const hold = (v) => () => { held = v; };
+      hero.addEventListener('pointerenter', hold(true));
+      hero.addEventListener('pointerleave', hold(false));
+      hero.addEventListener('focusin', hold(true));
+      hero.addEventListener('focusout', hold(false));
+      setInterval(() => { if (!held && !document.hidden) go(i + 1); }, 7000);
+    }
   }
 
   /* Подбор по площади */
