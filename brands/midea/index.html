@@ -157,12 +157,12 @@
       <p class="toolbar__count" aria-live="polite"><span data-count>84 товара</span></p>
       <label class="toolbar__search"><span class="visually-hidden">Поиск внутри бренда</span><svg class="ico " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34" /><circle cx="11" cy="11" r="8" /></svg><input class="input input--s" type="search" placeholder="Модель или название" data-catalog-q></label>
       <button class="btn btn--quiet btn--s toolbar__filters" type="button" data-filters-open><svg class="ico " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5H3" /><path d="M12 19H3" /><path d="M14 3v4" /><path d="M16 17v4" /><path d="M21 12h-9" /><path d="M21 19h-5" /><path d="M21 5h-7" /><path d="M8 10v4" /><path d="M8 12H3" /></svg>Фильтры</button>
-      <label class="toolbar__sort"><span class="visually-hidden">Сортировка</span><select class="input input--s" data-sort>
+      <label class="toolbar__sort select"><span class="visually-hidden">Сортировка</span><select class="input input--s" data-sort>
         <option value="order">Популярные</option>
-        <option value="price-asc">Дешевле</option>
-        <option value="price-desc">Дороже</option>
+        <option value="price-asc">Сначала дешёвые</option>
+        <option value="price-desc">Сначала дорогие</option>
         <option value="name">По названию</option>
-      </select></label>
+      </select><svg class="ico select__ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></label>
       <div class="toolbar__view" role="group" aria-label="Вид списка">
         <button class="icon-btn is-on" type="button" data-view="grid" aria-pressed="true" aria-label="Плиткой"><svg class="ico " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1" /><rect width="7" height="7" x="14" y="3" rx="1" /><rect width="7" height="7" x="14" y="14" rx="1" /><rect width="7" height="7" x="3" y="14" rx="1" /></svg></button>
         <button class="icon-btn" type="button" data-view="list" aria-pressed="false" aria-label="Списком"><svg class="ico " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h.01" /><path d="M3 12h.01" /><path d="M3 19h.01" /><path d="M8 5h13" /><path d="M8 12h13" /><path d="M8 19h13" /></svg></button>
@@ -1390,12 +1390,12 @@
 </div>
     <div class="field field--full">
   <label for="ds-type">Что устанавливаем</label>
-  <select class="input" id="ds-type" name="type" aria-describedby="ds-type-help" data-service>
+  <span class="select"><select class="input" id="ds-type" name="type" aria-describedby="ds-type-help" data-service>
       <option>Настенный, от 14 до 35 м²</option>
       <option>Настенный, от 35 до 90 м²</option>
       <option>Напольный, кассетный, канальный</option>
       <option>Другое оборудование</option>
-    </select>
+    </select><svg class="ico select__ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></span>
   <p class="field__help" id="ds-type-help"></p>
 </div>
     <div class="field field--full">

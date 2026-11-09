@@ -234,7 +234,11 @@ details[open] > summary .drawer__chev { transform: rotate(180deg); }
 .req { color: var(--color-copper); }
 .input { width: 100%; min-height: 48px; padding: 0 var(--space-md); border: 1px solid var(--color-field); border-radius: var(--radius-input); background: var(--color-surface); color: var(--color-ink); font-size: var(--text-md); outline: 2px solid transparent; outline-offset: -2px; }
 .input--area { padding-block: var(--space-sm); line-height: 1.4; resize: vertical; }
-select.input { padding-right: var(--space-xl); }
+/* Выпадающий список: стрелка из Lucide вместо системной, одинаковая во всех браузерах */
+.select { position: relative; display: flex; align-items: center; }
+.select .input { appearance: none; padding-right: var(--space-xl); cursor: pointer; transition: border-color var(--dur-short) var(--ease-out); }
+.select .input:hover { border-color: var(--color-ink); }
+.select__ico { position: absolute; right: var(--space-sm); color: var(--color-muted); pointer-events: none; }
 .input::placeholder { color: var(--color-muted); }
 .input:focus-visible { outline-color: var(--color-focus); }
 .input:disabled { opacity: 0.55; cursor: not-allowed; }
@@ -641,6 +645,8 @@ html:not(.js) .plan__pipe { stroke-dashoffset: 0; }
 .frange label { display: grid; gap: var(--space-3xs); color: var(--color-muted); font-size: var(--text-xs); }
 .frange__unit { padding-bottom: var(--space-sm); color: var(--color-muted); font-size: var(--text-xs); }
 .input--s { min-height: 44px; padding: 0 var(--space-sm); font-size: var(--text-sm); }
+/* На сенсорных экранах iOS увеличивает страницу при фокусе на поле со шрифтом меньше 16px */
+@media (pointer: coarse) { .input--s { font-size: var(--text-md); } }
 .filters__foot { display: grid; gap: var(--space-xs); padding-top: var(--space-md); border-top: 1px solid var(--color-rule); }
 .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs); margin-bottom: var(--space-md); }
 .toolbar__count { margin-right: auto; font-family: var(--font-display); font-size: var(--text-lg); font-weight: 500; }
@@ -648,8 +654,10 @@ html:not(.js) .plan__pipe { stroke-dashoffset: 0; }
 .toolbar__search { position: relative; display: flex; align-items: center; }
 .toolbar__search .ico { position: absolute; left: var(--space-sm); color: var(--color-muted); }
 .toolbar__search input { padding-left: var(--space-xl); width: 240px; }
-.toolbar__sort select { min-width: 200px; }
 .toolbar__view { display: flex; gap: var(--space-2xs); }
+/* Кнопки панели в одну рамку со списком сортировки: у поля граница должна держать 3:1 */
+.toolbar__view .icon-btn, .toolbar__filters { border-color: var(--color-field); }
+.toolbar__view .icon-btn:hover { border-color: var(--color-ink); }
 .toolbar__view .is-on { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-navy-ink); }
 .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-md); }
 .grid.is-list { grid-template-columns: minmax(0, 1fr); }
@@ -832,7 +840,6 @@ html:not(.js) .plan__pipe { stroke-dashoffset: 0; }
   .toolbar__filters { display: inline-flex; flex: 1; }
   .toolbar__count { width: 100%; margin-right: 0; }
   .toolbar__sort { flex: 1; }
-  .toolbar__sort select { min-width: 0; }
   .toolbar__search { width: 100%; }
   .toolbar__search input { width: 100%; }
   .toolbar__view { display: none; }
