@@ -338,7 +338,7 @@ select.input { padding-right: var(--space-xl); }
 .pc__actions .btn { flex: 1 1 auto; padding: 0 var(--space-sm); font-size: var(--text-xs); }
 
 /* ------- Лента ------- */
-.rail { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 3 * var(--space-md)) / 4); gap: var(--space-md); overflow-x: auto; scroll-snap-type: x mandatory; padding-inline: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter))); scroll-padding-inline: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter))); padding-block: var(--space-2xs) var(--space-md); margin: 0; list-style: none; overscroll-behavior-x: contain; scrollbar-width: thin; }
+.rail { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 3 * var(--space-md)) / 4); gap: var(--space-md); overflow-x: auto; scroll-snap-type: x mandatory; padding-inline: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter))); scroll-padding-inline: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter))); padding-block: var(--space-2xs); margin: 0; list-style: none; overscroll-behavior-x: contain; }
 .rail > * { scroll-snap-align: start; display: grid; min-width: 0; }
 .rail:focus-visible { outline-offset: -2px; }
 
@@ -936,3 +936,7 @@ html:not(.js) .plan__pipe { stroke-dashoffset: 0; }
 .svc-hero__pic--flat { aspect-ratio: 16 / 9; }
 .svc-hero__pic--flat img { top: 0; height: 100%; }
 .empty-cat__form .form-title { font-size: var(--text-section); }
+
+/* Горизонтальные ленты без полосы прокрутки: листаются стрелками, колесом, пальцем и с клавиатуры */
+.rail, .offer-grid, .seg, .subnav, .gallery__thumbs { scrollbar-width: none; }
+.rail::-webkit-scrollbar, .offer-grid::-webkit-scrollbar, .seg::-webkit-scrollbar, .subnav::-webkit-scrollbar, .gallery__thumbs::-webkit-scrollbar { display: none; }
