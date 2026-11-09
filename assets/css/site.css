@@ -14,6 +14,7 @@
 /* Hallmark · departures from Cobalt, by the client's brief: scene photos in natural colour with a mild cool grade instead of one duotone frame, a copper second signal, Geologica and IBM Plex for Cyrillic, light parallax on two photos */
 /* Hallmark · finish-review: subagent · 8 findings · 7 resolved 1 unresolved · gap: stock scene photos stay until the client supplies its own */
 /* Hallmark · waive 79 · the area picker sits right under the banner and fills that band · ClimatePro hero is a low banner by the client brief, the picker is its lower half, the measured gap is the picker itself */
+/* Hallmark · waive 77 · one legal line on a utility page, once a page · ClimatePro privacy page holds a single contact line until the client supplies the policy text */
 /* Hallmark · client request: visible pause button removed from the brands marquee, it still stops on hover and focus and stays still under reduced motion */
 /* Hallmark · answered F4 · ClimatePro keeps the header action outlined on the home first screen, cobalt fills only the catalog action and the area picker result, the rest are outlined */
 @import url("./tokens.css");
@@ -295,7 +296,6 @@ select.input { padding-right: var(--space-xl); }
 .link { color: var(--color-accent); font-family: var(--font-display); font-size: var(--text-sm); font-weight: 500; text-underline-offset: 0.25em; white-space: nowrap; }
 .link:hover { color: var(--color-accent-2); }
 .draft { margin-top: var(--space-md); color: var(--color-muted); font-size: var(--text-xs); max-width: 70ch; }
-.fill { padding: 0 0.25em; border: 1px dashed color-mix(in oklch, var(--color-muted) 70%, transparent); border-radius: 3px; color: var(--color-muted); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 
 .js [data-reveal] { opacity: 0; transform: translateY(8px); transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out); transition-delay: calc(var(--i, 0) * 45ms); }
 .js [data-reveal].is-in { opacity: 1; transform: none; }
@@ -406,7 +406,6 @@ select.input { padding-right: var(--space-xl); }
 html:not(.js) .geo__panel + .geo__panel { margin-top: var(--space-md); }
 .geo__name { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; letter-spacing: var(--tracking-display); line-height: 1.15; }
 .geo__near { color: var(--color-ink-2); font-size: var(--text-sm); }
-.geo__addr { font-size: var(--text-sm); }
 
 /* ------- Монтаж ------- */
 .montage { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gap-columns); align-items: start; }
@@ -932,3 +931,9 @@ html:not(.js) .plan__pipe { stroke-dashoffset: 0; }
   .hero__text--narrow { max-width: none; }
   .hero__actions { width: 100%; }
 }
+
+/* Кадр заказчика в обычных фотослотах: естественный цвет и видна вся сцена */
+[data-slot] > img.client-photo { filter: none; }
+.svc-hero__pic--flat { aspect-ratio: 16 / 9; }
+.svc-hero__pic--flat img { top: 0; height: 100%; }
+.empty-cat__form .form-title { font-size: var(--text-section); }
