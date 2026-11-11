@@ -102,7 +102,7 @@
   const hero = $('[data-hero]');
   if (hero) {
     const slides = $$('[data-slide]', hero);
-    const count = $('[data-hero-count]', hero);
+    const dots = $$('[data-hero-dot]', hero);
     let i = 0;
     const go = (n) => {
       i = (n + slides.length) % slides.length;
@@ -111,11 +111,12 @@
         if (k === i) s.removeAttribute('aria-hidden'); else s.setAttribute('aria-hidden', 'true');
         s.inert = k !== i;
       });
-      count.textContent = `${i + 1} / ${slides.length}`;
+      dots.forEach((d, k) => { if (k === i) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
     };
     slides.forEach((s, k) => { s.inert = k !== 0; });
     $('[data-hero-prev]', hero).addEventListener('click', () => go(i - 1));
     $('[data-hero-next]', hero).addEventListener('click', () => go(i + 1));
+    dots.forEach((d, k) => d.addEventListener('click', () => go(k)));
     hero.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') go(i - 1); if (e.key === 'ArrowRight') go(i + 1); });
     // Баннер листается сам и замирает, пока на нём курсор или фокус
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
