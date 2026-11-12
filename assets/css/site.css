@@ -1058,3 +1058,8 @@ img.is-flat { mix-blend-mode: multiply; filter: contrast(1.12) !important; box-s
 .vr-photos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-columns); margin: 0; padding: 0; list-style: none; }
 .vr-photos .vr__title { margin-top: var(--space-sm); }
 @media (max-width: 60rem) { .vr-photos { grid-template-columns: minmax(0, 1fr); } }
+
+/* Карточка гарантии: фото идёт в потоке под текстом и не закрывает его, когда карточка ниже (12.11) */
+.why__lead { --why-pad: var(--space-xl); grid-template-rows: auto 1fr; padding: var(--why-pad); }
+.why__pic { position: static; align-self: end; justify-self: end; width: 90%; margin-right: calc(-1 * var(--why-pad) - var(--space-xl)); }
+@media (max-width: 60rem) { .why__lead { --why-pad: var(--space-lg); } }
