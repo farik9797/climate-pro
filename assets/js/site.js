@@ -1,4 +1,4 @@
-/* ClimatePro: поведение интерфейса. Контент виден и без скриптов, здесь только улучшения. */
+/* Split Comfort: поведение интерфейса. Контент виден и без скриптов, здесь только улучшения. */
 (() => {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -99,8 +99,8 @@
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') mgr.open = false; });
   }
 
-  const hero = $('[data-hero]');
-  if (hero) {
+  // Каруселей может быть несколько: на странице /variants/ варианты баннера идут друг под другом
+  $$('[data-hero]').forEach((hero) => {
     const slides = $$('[data-slide]', hero);
     const dots = $$('[data-hero-dot]', hero);
     let i = 0;
@@ -128,7 +128,7 @@
       hero.addEventListener('focusout', hold(false));
       setInterval(() => { if (!held && !document.hidden) go(i + 1); }, 7000);
     }
-  }
+  });
 
   /* Подбор по площади */
   const picker = $('[data-picker]');
@@ -266,15 +266,6 @@
         .finally(() => btn.removeAttribute('aria-busy'));
     });
   });
-
-  /* Кнопка заявки в шапке заливается, когда главный экран ушёл из вида */
-  const mast = $('[data-mast]');
-  const sentinel = $('.picker-wrap');
-  if (mast && sentinel && 'IntersectionObserver' in window) {
-    new IntersectionObserver(([e]) => mast.classList.toggle('is-past', !e.isIntersecting)).observe(sentinel);
-  } else if (mast) {
-    mast.classList.add('is-past');
-  }
 
   /* Лента: кнопки прокрутки */
   $$('[data-rail-wrap]').forEach((wrap) => {

@@ -2,22 +2,22 @@
  * paper: oklch(98.4% 0.004 250) · accent: oklch(47.5% 0.165 257) · display: Geologica · body: IBM Plex Sans · hero: Banner · nav: двухъярусная, полоса разделов над строкой каталога и большого поиска · footer: index columns · signature: подбор по площади, м² в модель и цену монтажа
  * axes: light/geometric-sans/cool · posture: restrained · contrast: pass · fold: pass · job: buy · copy: verbatim · imagery: товарные фото Almacom, сцены Commons 8 в слотах · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V4 · weakest: P, каталог B2B тянет к шаблону магазина; спор ведёт подбор по площади и карта складов из реальной геометрии */
-/* Hallmark · waive 59 · gaps 96 to 144 varied, four paper changes · ClimatePro catalog runs 14 blocks and the client brief forbids large empty gaps between them */
+/* Hallmark · waive 59 · gaps 96 to 144 varied, four paper changes · Split Comfort catalog runs 14 blocks and the client brief forbids large empty gaps between them */
 /* Hallmark · dismissed 28a · checked: the first image in source sits inside the closed catalog menu, the real largest paint is the hero panorama and carries fetchpriority */
-/* Hallmark · dismissed 42 · checked: seven columns map the real sitemap of the ClimatePro catalog, services, brands and warehouses, and the stamp names this footer */
-/* Hallmark · waive 39b · five step rows act as large toggles for the diagram beside them · ClimatePro install steps keep pace with the pinned diagram, so each row stays tall */
-/* Hallmark · waive 49b · two lines at most, only at 320px · ClimatePro keeps real category names in the footer and catalog, they do not shorten */
-/* Hallmark · answered F15 · the catalog column gap holds across ClimatePro grids, the wider gaps belong to split sections with a photo */
-/* Hallmark · waive 83 · a gallery of the user's own work, concept page only · ClimatePro concept page shows screenshots of its own templates, so pictures lead there by design */
-/* Hallmark · dismissed 77 · checked: ClimatePro catalog, brand and contact pages are working templates of a large catalog, the section count of a landing page does not apply to them */
+/* Hallmark · dismissed 42 · checked: seven columns map the real sitemap of the Split Comfort catalog, services, brands and warehouses, and the stamp names this footer */
+/* Hallmark · waive 39b · five step rows act as large toggles for the diagram beside them · Split Comfort install steps keep pace with the pinned diagram, so each row stays tall */
+/* Hallmark · waive 49b · two lines at most, only at 320px · Split Comfort keeps real category names in the footer and catalog, they do not shorten */
+/* Hallmark · answered F15 · the catalog column gap holds across Split Comfort grids, the wider gaps belong to split sections with a photo */
+/* Hallmark · waive 83 · a gallery of the user's own work, concept page only · Split Comfort concept page shows screenshots of its own templates, so pictures lead there by design */
+/* Hallmark · dismissed 77 · checked: Split Comfort catalog, brand and contact pages are working templates of a large catalog, the section count of a landing page does not apply to them */
 /* Hallmark · client request 2026-11-09: labels strip above the banner, floating manager button and banner autoplay follow the client's references megaklimat.kz, al-style.kz, krovelnycenter.kz */
 /* Hallmark · hero-review: fix · 5 findings · 5 resolved */
 /* Hallmark · departures from Cobalt, by the client's brief: scene photos in natural colour with a mild cool grade instead of one duotone frame, a copper second signal, Geologica and IBM Plex for Cyrillic, light parallax on two photos */
 /* Hallmark · finish-review: subagent · 8 findings · 7 resolved 1 unresolved · gap: stock scene photos stay until the client supplies its own */
-/* Hallmark · waive 79 · the area picker sits right under the banner and fills that band · ClimatePro hero is a low banner by the client brief, the picker is its lower half, the measured gap is the picker itself */
-/* Hallmark · waive 77 · one legal line on a utility page, once a page · ClimatePro privacy page holds a single contact line until the client supplies the policy text */
+/* Hallmark · waive 79 · the area picker sits right under the banner and fills that band · Split Comfort hero is a low banner by the client brief, the picker is its lower half, the measured gap is the picker itself */
+/* Hallmark · waive 77 · one legal line on a utility page, once a page · Split Comfort privacy page holds a single contact line until the client supplies the policy text */
 /* Hallmark · client request: visible pause button removed from the brands marquee, it still stops on hover and focus and stays still under reduced motion */
-/* Hallmark · answered F4 · ClimatePro keeps the header action outlined on the home first screen, cobalt fills only the catalog action and the area picker result, the rest are outlined */
+/* Hallmark · answered F4 · Split Comfort header carries no action buttons by the client brief 11.11, cobalt fills only the banner action, the catalog action and the area picker result */
 @import url("./tokens.css");
 @import url("./base.css");
 
@@ -95,9 +95,6 @@ a:hover { text-decoration-color: var(--color-accent); }
 /* ------- Строка каталога и поиска ------- */
 .mast { position: sticky; top: 0; z-index: var(--z-sticky-nav); background: var(--color-surface); border-bottom: 1px solid var(--color-rule); }
 .mast__in { display: flex; align-items: center; gap: var(--space-md); min-height: var(--header-sticky); }
-.mast__actions { display: flex; gap: var(--space-xs); }
-.home .mast:not(.is-past) .mast__lead { background: var(--color-surface); color: var(--color-ink); border-color: var(--color-rule-2); box-shadow: none; }
-.home .mast:not(.is-past) .mast__lead:hover { border-color: var(--color-ink); }
 .mast__call, .mast__burger { display: none; }
 .logo { display: inline-flex; align-items: center; gap: var(--space-xs); color: var(--color-ink); text-decoration: none; flex-shrink: 0; }
 .logo__mark { color: var(--color-accent); }
@@ -267,13 +264,13 @@ details[open] > summary .drawer__chev { transform: rotate(180deg); }
 /* ------- Адаптив шапки и главного экрана ------- */
 @media (max-width: 96rem) { .tb-hours { display: none; } }
 @media (max-width: 80rem) { .tb-mail { display: none; } .logo__tag { display: none; } }
-@media (max-width: 68rem) { .mast__actions .btn--quiet { display: none; } .topbar__contact .tb-menu { display: none; } }
+@media (max-width: 68rem) { .topbar__contact .tb-menu { display: none; } }
 @media (max-width: 60rem) {
   .topbar { display: none; }
   .mast__in { flex-wrap: wrap; gap: var(--space-xs); min-height: 0; padding-block: var(--space-xs); }
   .logo { margin-right: auto; }
   .logo__word { font-size: 1.1875rem; }
-  .catalog-btn, .mast__actions { display: none; }
+  .catalog-btn { display: none; }
   .mast__call, .mast__burger { display: inline-flex; }
   .search { order: 5; flex-basis: 100%; }
   .mega { display: none; }
@@ -405,6 +402,10 @@ details[open] > summary .drawer__chev { transform: rotate(180deg); }
 .why__sub { max-width: 28ch; color: var(--color-navy-muted); }
 .why__pic { position: absolute; right: calc(-1 * var(--space-lg)); bottom: var(--space-lg); width: 62%; opacity: 0.96; }
 .why__rest { grid-column: span 7; display: grid; gap: var(--space-xl); align-content: start; }
+/* Без цифр 11 и 16 (бриф 11.11) пункты делят высоту карточки слева поровну */
+.why__rest { align-content: stretch; }
+.perks { grid-auto-rows: 1fr; border-bottom: 1px solid var(--color-rule); }
+.perks li { align-content: center; }
 .figs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-columns); }
 .fig { padding-top: var(--space-md); border-top: 2px solid var(--color-ink); }
 .fig b { display: block; font-family: var(--font-display); font-size: var(--text-display-s); font-weight: 600; letter-spacing: var(--tracking-display); line-height: 1; font-variant-numeric: tabular-nums; }
@@ -967,11 +968,9 @@ html:not(.js) .plan__pipe { stroke-dashoffset: 0; }
 /* Главный экран на кадрах заказчика: кадр привязан к правому краю, сдвиг задан у каждого слайда */
 .hero__bg { inset: calc(-1 * var(--space-md)) 0 0 0; }
 .hero__bg img { inset: 0 0 auto auto; width: auto; max-width: none; height: 100%; object-fit: fill; transform: translateX(var(--shift, 0%)); filter: none; }
-.hero__text--narrow { max-width: 520px; }
 @media (min-width: 60.01rem) { .hero .display-s { font-size: clamp(2rem, 2.6vw + 0.3rem, 3rem); } }
 @media (max-width: 60rem) {
   .hero__bg { inset: auto; }
-  .hero__text--narrow { max-width: none; }
   .hero__actions { width: 100%; }
 }
 
@@ -1014,3 +1013,48 @@ html:not(.js) .plan__pipe { stroke-dashoffset: 0; }
 
 /* Кадр на белом фоне, который нельзя вырезать: белое растворяется в подложке */
 img.is-flat { mix-blend-mode: multiply; filter: contrast(1.12) !important; box-shadow: none; }
+
+/* Варианты баннера (бриф 11.11): кнопки без рамок, выделены текстом и цветом */
+.hero__arrow { border-color: transparent; box-shadow: var(--shadow-raised); }
+.hero__arrow:hover { border-color: transparent; color: var(--color-accent); }
+.hero__actions { align-items: center; column-gap: var(--space-md); }
+.hero__link { display: inline-flex; align-items: center; min-height: 48px; color: var(--color-accent); font-family: var(--font-display); font-size: var(--text-sm); font-weight: 600; text-decoration: underline; text-decoration-color: currentColor; text-decoration-thickness: 1px; text-underline-offset: 0.35em; cursor: pointer; transition: color var(--dur-short) var(--ease-out); }
+.hero__link:hover { color: var(--color-accent-2); text-decoration-thickness: 2px; }
+.btn--copper { background: var(--color-copper); color: var(--color-copper-ink); box-shadow: var(--shadow-key); }
+.btn--copper:hover { background: var(--color-copper-2); }
+/* Только текст и цвет */
+.hero__go { display: inline-flex; align-items: center; min-height: 48px; color: var(--color-accent); font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; text-decoration: underline; text-decoration-color: currentColor; text-decoration-thickness: 2px; text-underline-offset: 0.25em; transition: color var(--dur-short) var(--ease-out); }
+.hero__go:hover { color: var(--color-accent-2); text-decoration-thickness: 3px; }
+.hero--text .hero__actions { column-gap: var(--space-lg); }
+.hero--text .hero__link { color: var(--color-ink); font-size: var(--text-md); font-weight: 500; }
+.hero--text .hero__link:hover { color: var(--color-accent-2); }
+/* Тёмный баннер */
+.hero--navy { background: var(--color-navy); color: var(--color-navy-ink); }
+.hero--navy .hero__scrim { background: linear-gradient(90deg, var(--color-navy) 36%, transparent 64%); }
+.hero--navy .display-s { color: var(--color-navy-ink); }
+.hero--navy .hero__lead { color: var(--color-navy-muted); }
+.hero--navy .hero__link { color: var(--color-navy-ink); }
+.hero--navy .hero__link:hover { color: var(--color-sky); }
+.hero--navy :focus-visible { outline-color: var(--color-focus-dark); }
+@media (max-width: 60rem) {
+  .js .hero--navy .hero__slide, .hero--navy .hero__slide { background: var(--color-navy); color: var(--color-navy-ink); }
+  .hero__go { font-size: var(--text-lg); }
+}
+
+/* Постановка из вырезок каталога для блока поставок */
+.collage { background: var(--color-paper-2); }
+.collage .collage__item { position: absolute; inset: auto; width: auto; height: auto; object-fit: contain; filter: var(--drop-card); }
+.collage .collage__wall { top: 9%; left: 6%; width: 58%; }
+.collage .collage__cassette { top: 6%; right: 5%; width: 30%; }
+.collage .collage__curtain { top: 43%; left: 6%; width: 56%; }
+.collage .collage__convector { bottom: 6%; left: 10%; width: 28%; }
+.collage .collage__cooler { bottom: 6%; right: 12%; height: 58%; }
+
+/* Страница вариантов на выбор */
+.vr { padding-block: var(--space-xl) 0; }
+.vr__head { margin-bottom: var(--space-md); }
+.vr__title { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 600; line-height: 1.3; }
+.vr__line { margin-top: var(--space-2xs); max-width: 64ch; color: var(--color-ink-2); font-size: var(--text-sm); }
+.vr-photos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-columns); margin: 0; padding: 0; list-style: none; }
+.vr-photos .vr__title { margin-top: var(--space-sm); }
+@media (max-width: 60rem) { .vr-photos { grid-template-columns: minmax(0, 1fr); } }

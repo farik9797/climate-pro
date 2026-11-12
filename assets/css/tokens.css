@@ -56,7 +56,7 @@
   --color-sky: oklch(80% 0.1 248); --color-focus: oklch(55% 0.19 258); --color-focus-dark: oklch(82% 0.12 248);
 
   /* Второй сигнал: медь монтажной трассы. Единственный тёплый цвет, чтобы сайт не был холодным */
-  --color-copper: oklch(54% 0.135 50); --color-copper-wash: oklch(95.5% 0.022 62); --color-copper-ink: oklch(100% 0 0);
+  --color-copper: oklch(54% 0.135 50); --color-copper-2: oklch(48% 0.13 48); --color-copper-wash: oklch(95.5% 0.022 62); --color-copper-ink: oklch(100% 0 0);
 
   --color-error: oklch(50% 0.19 27); --color-success: oklch(46% 0.11 155);
 
