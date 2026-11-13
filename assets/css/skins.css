@@ -120,10 +120,6 @@
   [data-theme="fresh"] .mast { background: var(--color-surface); -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 
-/* Стрелки баннера: белые круги с мягкой тенью */
-[data-theme="fresh"] .hero__arrow { border: 0; box-shadow: var(--shadow-card); }
-[data-theme="fresh"] .hero__arrow:hover { background: var(--color-accent-wash); color: var(--color-accent-2); }
-
 /* Глубина: товары отдельными карточками на нейтральной бумаге */
 [data-theme="fresh"] .pc { border-color: transparent; }
 [data-theme="fresh"] .pc__media { border-bottom: 0; }
@@ -148,7 +144,7 @@
 
 /* Движение: отклик на нажатие, подъём карточки под курсором, одно появление при прокрутке */
 @media (prefers-reduced-motion: no-preference) {
-  [data-theme="fresh"] :is(.btn, .bn__cta, .icon-btn):active { transform: scale(0.97); }
+  [data-theme="fresh"] :is(.btn, .bn__cta, .icon-btn, .bn-circ):active { transform: scale(0.97); }
   [data-theme="fresh"] .pc { transition: transform var(--dur-long) var(--ease-out), box-shadow var(--dur-long) var(--ease-out); }
   @media (hover: hover) {
     [data-theme="fresh"] .pc:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }

@@ -99,35 +99,104 @@
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') mgr.open = false; });
   }
 
-  // Каруселей может быть несколько: на странице /variants/ варианты баннера идут друг под другом
+  // Карусель баннеров с анимацией по atatrade.by (13.11).
+  // Смена слайда в два шага: товары текущего разлетаются от центра сцены (OUT), затем новый слайд проявляется
+  // и его товары слетаются по очереди (классы is-leaving / is-entering, анимации в site.css).
+  // Автолистание идёт по полосе под активной вкладкой: слайд сменяется, когда полоса заполнилась (animationend),
+  // поэтому пауза при наведении, фокусе или уходе баннера с экрана останавливает и полосу, и смену слайда.
+  // Любое действие пользователя (вкладка, стрелка, клавиша, свайп) автолистание выключает, как на atatrade.by.
   $$('[data-hero]').forEach((hero) => {
     const slides = $$('[data-slide]', hero);
-    const dots = $$('[data-hero-dot]', hero);
-    let i = 0;
-    const go = (n) => {
-      i = (n + slides.length) % slides.length;
-      slides.forEach((s, k) => {
-        s.classList.toggle('is-active', k === i);
-        if (k === i) s.removeAttribute('aria-hidden'); else s.setAttribute('aria-hidden', 'true');
-        s.inert = k !== i;
+    const tabs = $$('[data-hero-dot]', hero);
+    const curEl = $('[data-hero-cur]', hero);
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const OUT = 550, FADE = 460, IN = 1700, DUR = 8000;
+    let cur = 0, target = 0, tOut = 0, tLeave = 0, tEnter = 0, stopped = reduce;
+    const pad = (n) => String(n).padStart(2, '0');
+
+    // Направление разлёта: от центра сцены к центру товара
+    const spread = () => slides.forEach((s) => {
+      const stage = $('.bn__stage', s);
+      if (!stage) return;
+      const w = stage.clientWidth, h = stage.clientHeight, d = Math.max(80, w * 0.24);
+      $$('.bn__item', stage).forEach((it) => {
+        let dx = it.offsetLeft + it.offsetWidth / 2 - w / 2, dy = it.offsetTop + it.offsetHeight / 2 - h / 2;
+        const len = Math.hypot(dx, dy);
+        if (len < 8) { dx = 1; dy = 0; } else { dx /= len; dy /= len; }
+        it.style.setProperty('--ex', `${Math.round(dx * d)}px`);
+        it.style.setProperty('--ey', `${Math.round(dy * d * 0.7)}px`);
       });
-      dots.forEach((d, k) => { if (k === i) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
+    });
+    spread();
+    let rs = 0;
+    addEventListener('resize', () => { cancelAnimationFrame(rs); rs = requestAnimationFrame(spread); });
+
+    const mark = (n) => {
+      tabs.forEach((t, k) => { if (k === n) t.setAttribute('aria-current', 'true'); else t.removeAttribute('aria-current'); });
+      if (curEl) curEl.textContent = pad(n + 1);
+    };
+    const swap = (from, to, anim) => {
+      from.classList.remove('is-active');
+      from.setAttribute('aria-hidden', 'true');
+      from.inert = true;
+      to.classList.remove('is-leaving');
+      to.classList.add('is-active');
+      to.removeAttribute('aria-hidden');
+      to.inert = false;
+      cur = slides.indexOf(to);
+      hero.dataset.tone = to.dataset.tone || '';
+      if (!anim) { from.classList.remove('is-leaving'); return; }
+      to.classList.add('is-entering');
+      tLeave = setTimeout(() => from.classList.remove('is-leaving'), FADE);
+      tEnter = setTimeout(() => to.classList.remove('is-entering'), IN);
+    };
+    const stop = () => { stopped = true; hero.classList.remove('is-auto'); };
+    const go = (n, user) => {
+      n = (n + slides.length) % slides.length;
+      if (user) stop();
+      if (n === target) return;
+      clearTimeout(tOut); clearTimeout(tLeave); clearTimeout(tEnter);
+      slides.forEach((s) => { s.classList.remove('is-entering'); if (s === slides[cur]) s.classList.remove('is-leaving'); });
+      target = n;
+      mark(n);
+      const from = slides[cur], to = slides[n];
+      if (from === to) return;
+      if (reduce) { swap(from, to, false); return; }
+      from.classList.add('is-leaving');
+      tOut = setTimeout(() => swap(from, to, true), OUT);
     };
     slides.forEach((s, k) => { s.inert = k !== 0; });
-    $('[data-hero-prev]', hero).addEventListener('click', () => go(i - 1));
-    $('[data-hero-next]', hero).addEventListener('click', () => go(i + 1));
-    dots.forEach((d, k) => d.addEventListener('click', () => go(k)));
-    hero.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') go(i - 1); if (e.key === 'ArrowRight') go(i + 1); });
-    // Баннер листается сам и замирает, пока на нём курсор или фокус
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      let held = false;
-      const hold = (v) => () => { held = v; };
-      hero.addEventListener('pointerenter', hold(true));
-      hero.addEventListener('pointerleave', hold(false));
-      hero.addEventListener('focusin', hold(true));
-      hero.addEventListener('focusout', hold(false));
-      setInterval(() => { if (!held && !document.hidden) go(i + 1); }, 7000);
-    }
+    $('[data-hero-prev]', hero)?.addEventListener('click', () => go(target - 1, true));
+    $('[data-hero-next]', hero)?.addEventListener('click', () => go(target + 1, true));
+    tabs.forEach((t, k) => t.addEventListener('click', () => go(k, true)));
+    hero.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      go(target + (e.key === 'ArrowRight' ? 1 : -1), true);
+      if (e.target.matches('[data-hero-dot]')) tabs[target].focus();
+    });
+    // Свайп по баннеру на телефоне
+    let sx = 0, sy = 0, sOn = false;
+    hero.addEventListener('touchstart', (e) => { sOn = e.touches.length === 1 && !e.target.closest('button'); if (sOn) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; } }, { passive: true });
+    hero.addEventListener('touchend', (e) => {
+      if (!sOn) return;
+      sOn = false;
+      const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4) go(target + (dx < 0 ? 1 : -1), true);
+    }, { passive: true });
+
+    // Автолистание: при «уменьшить движение» выключено
+    if (stopped) return;
+    hero.style.setProperty('--hero-dur', `${DUR}ms`);
+    hero.classList.add('is-auto');
+    hero.addEventListener('animationend', (e) => { if (e.animationName === 'bn-bar' && !stopped) go(target + 1); });
+    const held = new Set();
+    const hold = (key, on) => { if (on) held.add(key); else held.delete(key); hero.classList.toggle('is-paused', held.size > 0); };
+    hero.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hold('hover', true); });
+    hero.addEventListener('pointerleave', () => hold('hover', false));
+    hero.addEventListener('focusin', () => hold('focus', true));
+    hero.addEventListener('focusout', (e) => { if (!hero.contains(e.relatedTarget)) hold('focus', false); });
+    document.addEventListener('visibilitychange', () => hold('hidden', document.hidden));
+    if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => hold('away', !e.isIntersecting), { threshold: 0.35 }).observe(hero);
   });
 
   /* Подбор по площади */

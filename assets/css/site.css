@@ -1038,52 +1038,79 @@ img.is-flat { mix-blend-mode: multiply; filter: none !important; box-shadow: non
 .gallery__main { background: var(--color-surface); border: 1px solid var(--color-rule); }
 .gallery__thumb { background: var(--color-surface); border-color: var(--color-rule); }
 
-/* ---------- Баннеры в формате megaklimat.kz (13.11) ----------
-   Во всю ширину 1920×605, весь слайд одна ссылка. Фон градиентом варианта оформления, инженерные окружности как у atatrade.by,
-   товары въезжают при смене слайда, слегка плавают и смещаются за курсором. */
-.hero--bn { height: auto; aspect-ratio: 1920 / 605; min-height: 380px; max-height: 640px; background: var(--color-navy); color: var(--bn-deep-ink); }
+/* ---------- Баннеры в формате megaklimat.kz, слайдер по atatrade.by (13.11) ----------
+   Во всю ширину 1920×605, весь слайд одна ссылка. Фон градиентом варианта оформления, инженерные окружности как у atatrade.by.
+   Смена слайда как у atatrade.by: товары разлетаются от центра и слетаются на новом слайде по очереди, подпись поднимается снизу.
+   Внизу панель: вкладки с полосой автолистания, счётчик, круглые стрелки. Товары слегка плавают и смещаются за курсором. */
+.hero--bn { --bn-ctrl-h: 56px; --ctrl-ink: var(--bn-deep-ink); height: auto; aspect-ratio: 1920 / 605; min-height: 400px; max-height: 640px; background: var(--color-navy); color: var(--bn-deep-ink); }
+.hero--bn[data-tone="light"] { --ctrl-ink: var(--bn-light-ink); }
 .bn { position: absolute; inset: 0; display: block; overflow: hidden; color: var(--bn-ink); text-decoration: none; }
 .bn--deep { background: var(--bn-deep); --bn-ink: var(--bn-deep-ink); --bn-ink-2: var(--bn-deep-ink-2); --bn-ring: var(--bn-ring-deep); }
 .bn--light { background: var(--bn-light); --bn-ink: var(--bn-light-ink); --bn-ink-2: var(--bn-light-ink-2); --bn-ring: var(--bn-ring-light); }
 .bn::before { content: ""; position: absolute; inset: -40% -10% -40% 30%; background: repeating-radial-gradient(circle at 60% 50%, transparent 0 78px, var(--bn-ring) 79px 80px), radial-gradient(circle at 62% 50%, var(--bn-glow) 0%, transparent 46%); transform: translate3d(calc(var(--px, 0) * 14px), calc(var(--py, 0) * 10px), 0); transition: transform var(--dur-long) var(--ease-out); pointer-events: none; }
 .bn:focus-visible { outline: 3px solid var(--color-focus-dark); outline-offset: -6px; }
-.bn__in { position: relative; height: 100%; max-width: var(--container); margin-inline: auto; padding-inline: max(var(--gutter), calc(var(--space-xs) + 44px + var(--space-md))); container-type: inline-size; }
-.bn__text { position: absolute; z-index: 2; left: max(var(--gutter), calc(var(--space-xs) + 44px + var(--space-md))); top: 50%; width: min(46%, 620px); display: grid; justify-items: start; gap: var(--space-md); transform: translateY(-54%); }
+.bn__in { position: relative; height: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); container-type: inline-size; }
+.bn__text { position: absolute; z-index: 2; left: var(--gutter); top: calc(50% - var(--bn-ctrl-h) / 2); width: min(46%, 620px); display: grid; justify-items: start; gap: var(--space-md); transform: translateY(-50%); }
 .bn__brand { padding: var(--space-xs) var(--space-md); background: var(--color-surface); border-radius: var(--radius-input); box-shadow: var(--shadow-card); }
 .bn__brand .bm { width: 132px; }
-.bn__title { max-width: 18ch; color: var(--bn-ink); font-size: clamp(1.75rem, 3.15cqi, 3.25rem); line-height: 1.06; }
+.bn__title { max-width: 22ch; color: var(--bn-ink); font-size: clamp(1.75rem, 3cqi, 3.125rem); line-height: 1.06; }
 .bn__lead { max-width: 44ch; margin: 0; color: var(--bn-ink-2); font-size: clamp(0.9375rem, 1.15cqi, 1.1875rem); line-height: 1.45; }
 .bn__cta { display: inline-flex; align-items: center; gap: var(--space-sm); min-height: 48px; margin-top: var(--space-xs); padding: 0 var(--space-lg); border-radius: var(--radius-input); background: var(--color-cta); color: var(--color-cta-ink); font-family: var(--font-display); font-size: var(--text-sm); font-weight: 600; box-shadow: var(--shadow-key); transition: background-color var(--dur-short) var(--ease-out); }
 .bn:hover .bn__cta { background: var(--color-cta-2); }
-.bn__stage { position: absolute; z-index: 1; left: 49%; right: max(var(--gutter), calc(var(--space-xs) + 44px + var(--space-md))); top: 9%; bottom: 13%; transform: translate3d(calc(var(--px, 0) * -16px), calc(var(--py, 0) * -10px), 0); transition: transform var(--dur-long) var(--ease-out); }
+.bn__stage { position: absolute; z-index: 1; left: 49%; right: var(--gutter); top: 8%; bottom: calc(var(--bn-ctrl-h) + var(--space-lg)); transform: translate3d(calc(var(--px, 0) * -16px), calc(var(--py, 0) * -10px), 0); transition: transform var(--dur-long) var(--ease-out); }
 .bn__item { position: absolute; left: calc(var(--x) * 1%); top: calc(var(--y) * 1%); width: calc(var(--w) * 1%); margin: 0; display: grid; justify-items: center; gap: var(--space-2xs); }
 .bn__item img { display: block; width: 100%; height: auto; filter: var(--drop-unit); }
 .bn__item figcaption { color: var(--bn-ink-2); font-size: clamp(0.6875rem, 0.82cqi, 0.8125rem); line-height: 1.25; text-align: center; white-space: nowrap; }
 .bn__item--photo img { aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-card); filter: none; box-shadow: var(--shadow-photo); }
 .hero--bn + .picker-wrap { margin-top: var(--space-lg); }
-.hero--bn .hero__dot::before { background: var(--bn-dot); box-shadow: inset 0 0 0 1px var(--bn-dot-ring); }
-.hero--bn .hero__dot[aria-current="true"]::before { width: 26px; background: var(--color-cta); }
-.hero--bn .hero__dot { width: 40px; }
+/* Панель слайдера: вкладки слева под текстом, счётчик и стрелки справа. Цвет берётся от тона текущего слайда */
+.bn-ctrl { position: absolute; z-index: 3; left: 0; right: 0; bottom: var(--space-md); color: var(--ctrl-ink); pointer-events: none; transition: color var(--dur-long) var(--ease-out); }
+.bn-ctrl__in { display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); min-height: var(--bn-ctrl-h); max-width: var(--container); margin-inline: auto; padding-inline: calc(var(--gutter) - var(--space-sm)) var(--gutter); }
+.bn-ctrl button { pointer-events: auto; }
+.bn-ctrl__tabs { display: flex; align-items: center; gap: var(--space-2xs); min-width: 0; }
+.bn-tab { position: relative; display: inline-flex; align-items: center; gap: var(--space-xs); min-height: 44px; padding: 0 var(--space-sm); border: 0; background: none; color: inherit; font-family: var(--font-display); font-size: var(--text-sm); font-weight: 500; white-space: nowrap; cursor: pointer; opacity: 0.74; transition: opacity var(--dur-short) var(--ease-out); }
+.bn-tab:hover, .bn-tab[aria-current="true"] { opacity: 1; }
+/* Точка вкладки, у активной ещё кольцо вокруг (рисуется фоном, не рамкой фокуса) */
+.bn-tab i { flex: none; width: 19px; height: 19px; border-radius: var(--radius-pill); background: radial-gradient(circle, currentColor 0 3px, transparent 3.5px); opacity: 0.6; transition: opacity var(--dur-short) var(--ease-out); }
+.bn-tab[aria-current="true"] i { opacity: 1; background: radial-gradient(circle, currentColor 0 3px, transparent 3.5px 7.5px, currentColor 8px 8.75px, transparent 9.25px); }
+/* Полоса автолистания: заполняется за время показа слайда, по её концу слайд сменяется (site.js) */
+.bn-tab::after { content: ""; position: absolute; left: calc(var(--space-sm) + 19px + var(--space-xs)); right: var(--space-sm); bottom: 5px; height: 2px; border-radius: var(--radius-pill); background: currentColor; transform: scaleX(0); transform-origin: 0 50%; }
+.hero--bn.is-auto .bn-tab[aria-current="true"]::after { animation: bn-bar var(--hero-dur, 8s) linear forwards; }
+.hero--bn.is-paused .bn-tab[aria-current="true"]::after { animation-play-state: paused; }
+.hero--bn:not(.is-auto) .bn-tab[aria-current="true"]::after { transform: scaleX(1); }
+.bn-ctrl__nav { display: flex; align-items: center; gap: var(--space-xs); }
+.bn-ctrl__count { display: flex; align-items: baseline; gap: var(--space-xs); margin: 0 var(--space-sm) 0 0; font-family: var(--font-display); font-size: var(--text-sm); font-variant-numeric: tabular-nums; }
+.bn-ctrl__count b { font-size: 1.75rem; font-weight: 600; line-height: 1; }
+.bn-ctrl__count span { opacity: 0.72; }
+.bn-circ { display: inline-grid; place-items: center; width: 48px; height: 48px; padding: 0; border: 1px solid color-mix(in srgb, currentColor 45%, transparent); border-radius: var(--radius-pill); background: color-mix(in srgb, currentColor 10%, transparent); color: inherit; cursor: pointer; transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out); }
+.bn-circ:hover { border-color: currentColor; background: color-mix(in srgb, currentColor 22%, transparent); }
+.bn-circ:active { transform: scale(0.94); }
+:is(.bn-tab, .bn-circ):focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+
 @media (prefers-reduced-motion: no-preference) {
-  .js .hero__slide.is-active .bn__text > * { animation: bn-rise var(--dur-long) var(--ease-out) both; }
-  .js .hero__slide.is-active .bn__text > :nth-child(2) { animation-delay: 60ms; }
-  .js .hero__slide.is-active .bn__text > :nth-child(3) { animation-delay: 120ms; }
-  .js .hero__slide.is-active .bn__text > :nth-child(4) { animation-delay: 180ms; }
-  .js .hero__slide.is-active .bn__item { animation: bn-in 720ms var(--ease-out) both; }
-  .js .hero__slide.is-active .bn__item:nth-child(2) { animation-delay: 90ms; }
-  .js .hero__slide.is-active .bn__item:nth-child(3) { animation-delay: 180ms; }
-  .js .hero__slide.is-active .bn__item:nth-child(4) { animation-delay: 270ms; }
+  /* Уход слайда: товары разлетаются от центра сцены и уменьшаются, подпись гаснет (atatrade.by: 0,55 с, с ускорением) */
+  .hero__slide.is-leaving .bn__item { animation: bn-out 550ms var(--ease-in) both; }
+  .hero__slide.is-leaving .bn__text > * { animation: bn-text-out 300ms var(--ease-in) both; }
+  /* Новый слайд: товары слетаются по очереди и вырастают, подпись поднимается снизу */
+  .hero__slide.is-entering .bn__item { animation: bn-assemble 1100ms var(--ease-out) both; animation-delay: calc(60ms + var(--k, 0) * 130ms); }
+  .hero__slide.is-entering .bn__text > * { animation: bn-text-in 600ms var(--ease-out) both; animation-delay: 120ms; }
+  .hero__slide.is-entering .bn__text > :nth-child(2) { animation-delay: 190ms; }
+  .hero__slide.is-entering .bn__text > :nth-child(3) { animation-delay: 260ms; }
+  .hero__slide.is-entering .bn__text > :nth-child(4) { animation-delay: 330ms; }
   .bn__item img { animation: bn-float 5.5s ease-in-out infinite alternate; }
   .bn__item:nth-child(2n) img { animation-duration: 6.5s; animation-delay: -2s; }
 }
-/* Только сдвиг, без прозрачности: если анимация не запустится, текст и товары всё равно видны */
-@keyframes bn-rise { from { transform: translateY(14px); } to { transform: none; } }
-@keyframes bn-in { from { transform: translateX(48px); } to { transform: none; } }
+/* Первый слайд при загрузке не анимируется: заголовок и товары видны сразу. --ex/--ey считает site.js */
+@keyframes bn-out { to { opacity: 0; transform: translate(calc(var(--ex, 80px) * 1.3), calc(var(--ey, 0px) * 1.3)) scale(0.1); } }
+@keyframes bn-assemble { from { opacity: 0; transform: translate(var(--ex, 80px), var(--ey, 0px)) scale(0.65); } }
+@keyframes bn-text-out { to { opacity: 0; transform: translateY(-10px); } }
+@keyframes bn-text-in { from { opacity: 0; transform: translateY(14px); } }
 @keyframes bn-float { from { transform: translateY(0); } to { transform: translateY(-8px); } }
+@keyframes bn-bar { to { transform: scaleX(1); } }
 @media (max-width: 60rem) {
   .hero--bn { aspect-ratio: 16 / 10; max-height: none; }
   .bn__text { width: 52%; gap: var(--space-sm); }
-  .bn__stage { left: 54%; right: var(--gutter); top: 14%; bottom: 16%; }
+  .bn__stage { left: 54%; right: var(--gutter); top: 12%; bottom: calc(var(--bn-ctrl-h) + var(--space-lg)); }
   .bn__lead { display: none; }
 }
 @media (max-width: 40rem) {
@@ -1092,7 +1119,15 @@ img.is-flat { mix-blend-mode: multiply; filter: none !important; box-shadow: non
   .bn__text { left: var(--gutter); right: var(--gutter); top: var(--space-lg); width: auto; transform: none; }
   .bn__title { font-size: clamp(1.375rem, 6.4vw, 1.875rem); max-width: none; }
   .bn__brand .bm { width: 104px; }
-  .bn__stage { left: var(--gutter); right: var(--gutter); top: auto; bottom: 52px; height: 36%; transform: none; }
+  .bn__stage { left: var(--gutter); right: var(--gutter); top: auto; bottom: calc(var(--bn-ctrl-h) + var(--space-md)); height: 34%; transform: none; }
+  /* Панель на телефоне: у неактивных вкладок только точка, счётчика нет, стрелки меньше (как на atatrade.by) */
+  .bn-ctrl { bottom: var(--space-xs); }
+  .bn-ctrl__in { padding-inline: calc(var(--gutter) - var(--space-sm)) var(--gutter); gap: var(--space-xs); }
+  .bn-tab { padding-inline: var(--space-xs); }
+  .bn-tab:not([aria-current="true"]) span { display: none; }
+  .bn-tab::after { left: calc(var(--space-xs) * 2 + 19px); right: var(--space-xs); }
+  .bn-ctrl__count { display: none; }
+  .bn-circ { width: 44px; height: 44px; }
   .bn__item { left: calc(var(--mx) * 1%); top: calc(var(--my) * 1%); width: calc(var(--mw) * 1%); }
   .bn__item--wide { display: none; }
   .bn__item figcaption { font-size: 0.6875rem; white-space: normal; }
