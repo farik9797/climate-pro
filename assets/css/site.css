@@ -21,9 +21,9 @@
 /* Hallmark · answered F7 · the pill radius sits on controls only: buttons, the search field, slider controls and the round grounds of the category label icons, which are links */
 /* Hallmark · answered F4 · Split Comfort header carries no action buttons by the client brief 11.11, cobalt fills only the banner action, the catalog action and the area picker result */
 /* Hallmark · waive 29 · frosted glass on the sticky header · the client asked for an Apple-like finish, the header blurs the catalog under it and turns solid under prefers-reduced-transparency */
-@import url("./tokens.css");
-@import url("./base.css");
-@import url("./theme.css");
+@import url("./tokens.css?v=cc9c601e84");
+@import url("./base.css?v=cc9c601e84");
+@import url("./theme.css?v=cc9c601e84");
 
 /* ------- Основа ------- */
 body { background: var(--color-paper); }
