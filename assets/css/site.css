@@ -703,6 +703,11 @@ html:not(.js) .plan__pipe { stroke-dashoffset: 0; }
 .pager__btn:active { background: var(--color-paper-2); }
 .pager__btn:disabled { opacity: 0.55; cursor: not-allowed; }
 .pager__btn.is-on { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-navy-ink); }
+/* Сокращённая пагинация (13.11): края, соседние с текущей и многоточие, в одну строку. На телефоне «Назад» и «Вперёд» только стрелкой */
+.pager { flex-wrap: nowrap; align-items: center; }
+.pager__btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2xs); font-variant-numeric: tabular-nums; }
+.pager__gap { min-width: 28px; color: var(--color-muted); text-align: center; }
+@media (max-width: 40rem) { .pager__word { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } .pager__btn { padding: 0 var(--space-xs); } }
 .seo-text__in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-2xl); align-items: start; }
 .seo-text h2 { font-size: var(--text-section); }
 .seo-text__body { display: grid; gap: var(--space-sm); }

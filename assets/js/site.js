@@ -494,15 +494,32 @@
       pager.innerHTML = '';
       if (pages > 1) {
         const mk = (label, n, cur, aria) => { const b = document.createElement('button'); b.type = 'button'; b.className = `pager__btn${cur ? ' is-on' : ''}`; b.innerHTML = label; if (aria) b.setAttribute('aria-label', aria); if (cur) b.setAttribute('aria-current', 'page'); if (n === null) b.disabled = true; else b.addEventListener('click', () => { page = n; apply(false); cat.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' }); }); return b; };
-        pager.append(mk('Назад', page > 1 ? page - 1 : null, false, 'Предыдущая страница'));
-        for (let n = 1; n <= pages; n++) pager.append(mk(String(n), n, n === page, `Страница ${n}`));
-        pager.append(mk('Вперёд', page < pages ? page + 1 : null, false, 'Следующая страница'));
+        // Номера сокращены: первая и последняя страница, соседние с текущей, между ними многоточие.
+        // На телефоне соседей нет, «Назад» и «Вперёд» показаны стрелкой: пагинация остаётся в одну строку.
+        const sib = matchMedia('(max-width: 40rem)').matches ? 0 : 1;
+        const near = new Set([1, pages]);
+        for (let n = page - sib; n <= page + sib; n++) near.add(n);
+        const edge = 3 + sib * 2;
+        if (page <= edge - 1) for (let n = 2; n <= edge; n++) near.add(n);
+        if (page >= pages - edge + 2) for (let n = pages - edge + 1; n < pages; n++) near.add(n);
+        const nums = [...near].filter((n) => n >= 1 && n <= pages).sort((a, b) => a - b);
+        const word = (ico, text, after) => (after ? `<span class="pager__word">${text}</span>${pager.dataset[ico] || ''}` : `${pager.dataset[ico] || ''}<span class="pager__word">${text}</span>`);
+        pager.append(mk(word('prevIco', 'Назад'), page > 1 ? page - 1 : null, false, 'Предыдущая страница'));
+        nums.forEach((n, k) => {
+          const gap = k ? n - nums[k - 1] : 1;
+          if (gap === 2) pager.append(mk(String(n - 1), n - 1, false, `Страница ${n - 1}`));
+          else if (gap > 2) { const s = document.createElement('span'); s.className = 'pager__gap'; s.setAttribute('aria-hidden', 'true'); s.textContent = '…'; pager.append(s); }
+          pager.append(mk(String(n), n, n === page, `Страница ${n}`));
+        });
+        pager.append(mk(word('nextIco', 'Вперёд', true), page < pages ? page + 1 : null, false, 'Следующая страница'));
       }
     };
     form.addEventListener('input', () => apply());
     form.addEventListener('reset', () => setTimeout(() => apply(), 0));
     form.addEventListener('submit', (e) => e.preventDefault());
     sortSel.addEventListener('change', () => apply());
+    // Пагинация на телефоне короче: перерисовать при повороте экрана или смене ширины окна
+    matchMedia('(max-width: 40rem)').addEventListener('change', () => apply(false));
     q?.addEventListener('input', () => apply());
     $$('[data-view]', cat).forEach((b) => b.addEventListener('click', () => {
       grid.classList.toggle('is-list', b.dataset.view === 'list');
