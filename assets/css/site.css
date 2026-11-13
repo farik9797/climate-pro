@@ -17,9 +17,14 @@
 /* Hallmark · waive 79 · the area picker sits right under the banner and fills that band · Split Comfort hero is a low banner by the client brief, the picker is its lower half, the measured gap is the picker itself */
 /* Hallmark · waive 77 · one legal line on a utility page, once a page · Split Comfort privacy page holds a single contact line until the client supplies the policy text */
 /* Hallmark · client request: visible pause button removed from the brands marquee, it still stops on hover and focus and stays still under reduced motion */
+/* Hallmark · dismissed 40 · checked: banner text sits on the dark left third of each gradient, the light end lies behind the products, white on the darkest stop is 6:1 and above */
+/* Hallmark · waive 37 · three design variants each bring two families so the client can compare them · after the choice one variant stays and the page returns to two families plus mono for models */
+/* Hallmark · answered F7 · the pill radius sits on controls only: slider dots, the design variant switcher and the round grounds of the category label icons, which are links */
+/* Hallmark · answered F19 · the three design variants add a 700 display weight so the client can compare them, one variant stays after the choice and the scale returns to three weights */
 /* Hallmark · answered F4 · Split Comfort header carries no action buttons by the client brief 11.11, cobalt fills only the banner action, the catalog action and the area picker result */
 @import url("./tokens.css");
 @import url("./base.css");
+@import url("./skins.css");
 
 /* ------- Основа ------- */
 body { background: var(--color-paper); }
@@ -160,12 +165,6 @@ a:hover { text-decoration-color: var(--color-accent); }
 html:not(.js) .hero__slide:not(.is-active) { display: none; }
 .js .hero__slide { opacity: 0; visibility: hidden; transition: opacity var(--dur-long) var(--ease-out), visibility 0s linear var(--dur-long); }
 .js .hero__slide.is-active { opacity: 1; visibility: visible; transition: opacity var(--dur-long) var(--ease-out); }
-.hero__bg { position: absolute; inset: 0; margin: 0; }
-.hero__scrim { position: absolute; inset: 0; z-index: 2; background: linear-gradient(90deg, var(--color-paper) 30%, transparent 58%); pointer-events: none; }
-.hero__grid { position: relative; z-index: 3; display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: var(--space-xl); height: 100%; align-items: center; padding-bottom: var(--space-md); }
-.hero__text { display: grid; gap: var(--space-md); justify-items: start; }
-.hero__lead { max-width: 44ch; color: var(--color-ink-2); }
-.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-xs); }
 .hero__arrow { position: absolute; z-index: 4; top: 50%; transform: translateY(-50%); }
 .hero__arrow--prev { left: var(--space-xs); }
 .hero__arrow--next { right: var(--space-xs); }
@@ -178,7 +177,6 @@ html:not(.js) .hero__slide:not(.is-active) { display: none; }
 @media (pointer: coarse) { .hero__dot { width: 44px; height: 44px; } }
 html:not(.js) .hero__arrow, html:not(.js) .hero__dots { display: none; }
 /* Стрелка баннера стоит у края экрана, поэтому текст слайда отодвинут от неё */
-@media (min-width: 60.01rem) { .hero__grid { padding-inline: max(var(--gutter), calc(var(--space-xs) + 44px + var(--space-md))); } }
 
 /* ------- Подбор по площади: подпись сайта ------- */
 .picker-wrap { position: relative; z-index: var(--z-raised); margin-top: calc(-1 * var(--space-md)); }
@@ -275,13 +273,6 @@ details[open] > summary .drawer__chev { transform: rotate(180deg); }
   .search { order: 5; flex-basis: 100%; }
   .mega { display: none; }
 
-  .hero { height: auto; overflow: visible; }
-  .hero__bg { position: relative; aspect-ratio: 16 / 9; order: 2; }
-  .hero__scrim { display: none; }
-  .hero__grid { display: block; height: auto; padding-block: 0; }
-  .hero__text { padding: var(--space-lg) 0 var(--space-md); }
-  .js .hero__slide, .hero__slide { position: relative; display: none; opacity: 1; visibility: visible; background: var(--color-paper); }
-  .js .hero__slide.is-active, .hero__slide.is-active { display: flex; flex-direction: column-reverse; }
   .hero__arrow { display: none; }
   .picker-wrap { margin-top: var(--space-md); }
   .picker { grid-template-columns: minmax(0, 1fr); }
@@ -390,7 +381,7 @@ details[open] > summary .drawer__chev { transform: rotate(180deg); }
 .marquee__set a { display: flex; align-items: center; justify-content: center; width: 216px; height: 112px; border-right: 1px solid var(--color-rule); color: var(--color-ink); text-decoration: none; transition: color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out); }
 .marquee__set a:hover { color: var(--color-accent); background: var(--color-paper); }
 [data-loop]:not(.is-running) .marquee__track { animation-play-state: paused; }
-.bm { display: block; width: 150px; height: var(--h, 36px); background: currentColor; -webkit-mask: var(--logo) center / contain no-repeat; mask: var(--logo) center / contain no-repeat; }
+.bm { display: block; width: 150px; height: var(--h, 36px); object-fit: contain; }
 .bm-type { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; letter-spacing: var(--tracking-display); white-space: nowrap; }
 @media (prefers-reduced-motion: reduce) { .marquee { overflow-x: auto; } .marquee__track { animation: none; } .marquee__set[aria-hidden="true"] { display: none; } }
 
@@ -601,17 +592,9 @@ html:not(.js) .plan__pipe { stroke-dashoffset: 0; }
   .foot__store { grid-template-columns: minmax(0, 1fr); gap: var(--space-xs); }
 }
 
-/* Телефон: главный экран собран отдельно, текст сверху, постановка в своём окне */
 @media (max-width: 60rem) {
-  .js .hero__slide, .hero__slide { position: relative; display: none; inset: auto; grid-template-areas: "text" "pic"; grid-template-columns: minmax(0, 1fr); opacity: 1; visibility: visible; background: var(--color-paper); }
-  .js .hero__slide.is-active, .hero__slide.is-active { display: grid; flex-direction: initial; }
-  .hero__grid { display: contents; }
-  .hero__text { grid-area: text; padding: var(--space-lg) var(--gutter) var(--space-md); gap: var(--space-sm); }
-  .hero__text .display-s { font-size: clamp(1.625rem, 7.4vw, 2.5rem); }
-  .hero__bg { grid-area: pic; aspect-ratio: 16 / 9; position: relative; inset: auto; }
   .hero__dots { bottom: var(--space-2xs); }
-  .hero__actions .btn { flex: 1 1 100%; }
-  }
+}
 
 /* Правки по блокам главной */
 .tile__head { display: block; position: relative; z-index: 2; }
@@ -630,7 +613,6 @@ html:not(.js) .plan__pipe { stroke-dashoffset: 0; }
 .why__sub { margin-top: var(--space-md); }
 .why__pic { position: absolute; right: calc(-1 * var(--space-xl)); bottom: var(--space-xl); width: 74%; height: auto; opacity: 1; filter: var(--drop-unit); }
 .geo__list li:last-child:nth-child(odd) { grid-column: 1 / -1; }
-.bm { -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
 .bm--s { width: 104px; }
 .no-scroll, .no-scroll body { overflow: hidden; }
 
@@ -944,7 +926,6 @@ html:not(.js) .plan__pipe { stroke-dashoffset: 0; }
 
 
 .pp__facts li:last-child:nth-child(odd) { grid-column: 1 / -1; }
-@media (max-width: 40rem) { .hero__actions .btn { padding: 0 var(--space-sm); font-size: var(--text-xs); } }
 
 .seo-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-md); margin: var(--space-md) 0 0; padding: 0; list-style: none; }
 .seo-links a { display: grid; gap: var(--space-2xs); padding-top: var(--space-sm); border-top: 2px solid var(--color-ink); color: var(--color-ink); text-decoration: none; transition: border-color var(--dur-short) var(--ease-out); }
@@ -965,14 +946,6 @@ html:not(.js) .plan__pipe { stroke-dashoffset: 0; }
   .plan__mark text { font-size: 28px; transform: translateY(5px); }
 }
 
-/* Главный экран на кадрах заказчика: кадр привязан к правому краю, сдвиг задан у каждого слайда */
-.hero__bg { inset: calc(-1 * var(--space-md)) 0 0 0; }
-.hero__bg img { inset: 0 0 auto auto; width: auto; max-width: none; height: 100%; object-fit: fill; transform: translateX(var(--shift, 0%)); filter: none; }
-@media (min-width: 60.01rem) { .hero .display-s { font-size: clamp(2rem, 2.6vw + 0.3rem, 3rem); } }
-@media (max-width: 60rem) {
-  .hero__bg { inset: auto; }
-  .hero__actions { width: 100%; }
-}
 
 /* Кадр заказчика в обычных фотослотах: естественный цвет и видна вся сцена */
 [data-slot] > img.client-photo { filter: none; }
@@ -1012,34 +985,11 @@ html:not(.js) .plan__pipe { stroke-dashoffset: 0; }
 .legal__line { margin: var(--space-sm) 0 var(--space-lg); max-width: 46ch; color: var(--color-navy-muted); }
 
 /* Кадр на белом фоне, который нельзя вырезать: белое растворяется в подложке */
-img.is-flat { mix-blend-mode: multiply; filter: contrast(1.12) !important; box-shadow: none; }
+img.is-flat { mix-blend-mode: multiply; filter: none !important; box-shadow: none; }
 
-/* Варианты баннера (бриф 11.11): кнопки без рамок, выделены текстом и цветом */
+/* Стрелки баннера без рамок (бриф 11.11) */
 .hero__arrow { border-color: transparent; box-shadow: var(--shadow-raised); }
 .hero__arrow:hover { border-color: transparent; color: var(--color-accent); }
-.hero__actions { align-items: center; column-gap: var(--space-md); }
-.hero__link { display: inline-flex; align-items: center; min-height: 48px; color: var(--color-accent); font-family: var(--font-display); font-size: var(--text-sm); font-weight: 600; text-decoration: underline; text-decoration-color: currentColor; text-decoration-thickness: 1px; text-underline-offset: 0.35em; cursor: pointer; transition: color var(--dur-short) var(--ease-out); }
-.hero__link:hover { color: var(--color-accent-2); text-decoration-thickness: 2px; }
-.btn--copper { background: var(--color-copper); color: var(--color-copper-ink); box-shadow: var(--shadow-key); }
-.btn--copper:hover { background: var(--color-copper-2); }
-/* Только текст и цвет */
-.hero__go { display: inline-flex; align-items: center; min-height: 48px; color: var(--color-accent); font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; text-decoration: underline; text-decoration-color: currentColor; text-decoration-thickness: 2px; text-underline-offset: 0.25em; transition: color var(--dur-short) var(--ease-out); }
-.hero__go:hover { color: var(--color-accent-2); text-decoration-thickness: 3px; }
-.hero--text .hero__actions { column-gap: var(--space-lg); }
-.hero--text .hero__link { color: var(--color-ink); font-size: var(--text-md); font-weight: 500; }
-.hero--text .hero__link:hover { color: var(--color-accent-2); }
-/* Тёмный баннер */
-.hero--navy { background: var(--color-navy); color: var(--color-navy-ink); }
-.hero--navy .hero__scrim { background: linear-gradient(90deg, var(--color-navy) 36%, transparent 64%); }
-.hero--navy .display-s { color: var(--color-navy-ink); }
-.hero--navy .hero__lead { color: var(--color-navy-muted); }
-.hero--navy .hero__link { color: var(--color-navy-ink); }
-.hero--navy .hero__link:hover { color: var(--color-sky); }
-.hero--navy :focus-visible { outline-color: var(--color-focus-dark); }
-@media (max-width: 60rem) {
-  .js .hero--navy .hero__slide, .hero--navy .hero__slide { background: var(--color-navy); color: var(--color-navy-ink); }
-  .hero__go { font-size: var(--text-lg); }
-}
 
 /* Постановка из вырезок каталога для блока поставок */
 .collage { background: var(--color-paper-2); }
@@ -1051,15 +1001,96 @@ img.is-flat { mix-blend-mode: multiply; filter: contrast(1.12) !important; box-s
 .collage .collage__cooler { bottom: 6%; right: 12%; height: 58%; }
 
 /* Страница вариантов на выбор */
-.vr { padding-block: var(--space-xl) 0; }
-.vr__head { margin-bottom: var(--space-md); }
 .vr__title { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 600; line-height: 1.3; }
 .vr__line { margin-top: var(--space-2xs); max-width: 64ch; color: var(--color-ink-2); font-size: var(--text-sm); }
 .vr-photos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-columns); margin: 0; padding: 0; list-style: none; }
 .vr-photos .vr__title { margin-top: var(--space-sm); }
+.vr-skins { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap-columns); margin: 0; padding: 0; list-style: none; }
+.vr-skin { display: grid; align-content: start; gap: var(--space-sm); padding: var(--space-lg); background: var(--color-paper); color: var(--color-ink); border: 1px solid var(--color-rule); border-radius: var(--radius-card); font-family: var(--font-body); }
+.vr-skin__swatches { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); height: 56px; overflow: hidden; border-radius: var(--radius-input); border: 1px solid var(--color-rule); }
+.vr-skin__title { font-size: var(--text-xl); }
+.vr-skin__demo { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-block: var(--space-xs); pointer-events: none; }
+@media (max-width: 80rem) { .vr-skins { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 40rem) { .vr-skins { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 60rem) { .vr-photos { grid-template-columns: minmax(0, 1fr); } }
 
 /* Карточка гарантии: фото идёт в потоке под текстом и не закрывает его, когда карточка ниже (12.11) */
 .why__lead { --why-pad: var(--space-xl); grid-template-rows: auto 1fr; padding: var(--why-pad); }
 .why__pic { position: static; align-self: end; justify-self: end; width: 90%; margin-right: calc(-1 * var(--why-pad) - var(--space-xl)); }
 @media (max-width: 60rem) { .why__lead { --why-pad: var(--space-lg); } }
+
+/* Подложка фото товара белая, как у магазинов-источников: карточка не сливается с серым фоном страницы, белый блок читается по своему контуру (13.11) */
+.pc__media { background: var(--color-surface); border-bottom: 1px solid var(--color-rule); }
+.gallery__main { background: var(--color-surface); border: 1px solid var(--color-rule); }
+.gallery__thumb { background: var(--color-surface); border-color: var(--color-rule); }
+
+/* ---------- Баннеры в формате megaklimat.kz (13.11) ----------
+   Во всю ширину 1920×605, весь слайд одна ссылка. Фон градиентом варианта оформления, инженерные окружности как у atatrade.by,
+   товары въезжают при смене слайда, слегка плавают и смещаются за курсором. */
+.hero--bn { height: auto; aspect-ratio: 1920 / 605; min-height: 380px; max-height: 640px; background: var(--color-navy); color: var(--bn-deep-ink); }
+.bn { position: absolute; inset: 0; display: block; overflow: hidden; color: var(--bn-ink); text-decoration: none; }
+.bn--deep { background: var(--bn-deep); --bn-ink: var(--bn-deep-ink); --bn-ink-2: var(--bn-deep-ink-2); --bn-ring: var(--bn-ring-deep); }
+.bn--light { background: var(--bn-light); --bn-ink: var(--bn-light-ink); --bn-ink-2: var(--bn-light-ink-2); --bn-ring: var(--bn-ring-light); }
+.bn::before { content: ""; position: absolute; inset: -40% -10% -40% 30%; background: repeating-radial-gradient(circle at 60% 50%, transparent 0 78px, var(--bn-ring) 79px 80px), radial-gradient(circle at 62% 50%, var(--bn-glow) 0%, transparent 46%); transform: translate3d(calc(var(--px, 0) * 14px), calc(var(--py, 0) * 10px), 0); transition: transform var(--dur-long) var(--ease-out); pointer-events: none; }
+.bn:focus-visible { outline: 3px solid var(--color-focus-dark); outline-offset: -6px; }
+.bn__in { position: relative; height: 100%; max-width: var(--container); margin-inline: auto; padding-inline: max(var(--gutter), calc(var(--space-xs) + 44px + var(--space-md))); container-type: inline-size; }
+.bn__text { position: absolute; z-index: 2; left: max(var(--gutter), calc(var(--space-xs) + 44px + var(--space-md))); top: 50%; width: min(46%, 620px); display: grid; justify-items: start; gap: var(--space-md); transform: translateY(-54%); }
+.bn__brand { padding: var(--space-xs) var(--space-md); background: var(--color-surface); border-radius: var(--radius-input); box-shadow: var(--shadow-card); }
+.bn__brand .bm { width: 132px; }
+.bn__title { max-width: 18ch; color: var(--bn-ink); font-size: clamp(1.75rem, 3.15cqi, 3.25rem); line-height: 1.06; }
+.bn__lead { max-width: 44ch; margin: 0; color: var(--bn-ink-2); font-size: clamp(0.9375rem, 1.15cqi, 1.1875rem); line-height: 1.45; }
+.bn__cta { display: inline-flex; align-items: center; gap: var(--space-sm); min-height: 48px; margin-top: var(--space-xs); padding: 0 var(--space-lg); border-radius: var(--radius-input); background: var(--color-cta); color: var(--color-cta-ink); font-family: var(--font-display); font-size: var(--text-sm); font-weight: 600; box-shadow: var(--shadow-key); transition: background-color var(--dur-short) var(--ease-out); }
+.bn:hover .bn__cta { background: var(--color-cta-2); }
+.bn__stage { position: absolute; z-index: 1; left: 49%; right: max(var(--gutter), calc(var(--space-xs) + 44px + var(--space-md))); top: 9%; bottom: 13%; transform: translate3d(calc(var(--px, 0) * -16px), calc(var(--py, 0) * -10px), 0); transition: transform var(--dur-long) var(--ease-out); }
+.bn__item { position: absolute; left: calc(var(--x) * 1%); top: calc(var(--y) * 1%); width: calc(var(--w) * 1%); margin: 0; display: grid; justify-items: center; gap: var(--space-2xs); }
+.bn__item img { display: block; width: 100%; height: auto; filter: var(--drop-unit); }
+.bn__item figcaption { color: var(--bn-ink-2); font-size: clamp(0.6875rem, 0.82cqi, 0.8125rem); line-height: 1.25; text-align: center; white-space: nowrap; }
+.bn__item--photo img { aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-card); filter: none; box-shadow: var(--shadow-photo); }
+.hero--bn + .picker-wrap { margin-top: var(--space-lg); }
+.hero--bn .hero__dot::before { background: var(--bn-dot); box-shadow: inset 0 0 0 1px var(--bn-dot-ring); }
+.hero--bn .hero__dot[aria-current="true"]::before { width: 26px; background: var(--color-cta); }
+.hero--bn .hero__dot { width: 40px; }
+@media (prefers-reduced-motion: no-preference) {
+  .js .hero__slide.is-active .bn__text > * { animation: bn-rise var(--dur-long) var(--ease-out) both; }
+  .js .hero__slide.is-active .bn__text > :nth-child(2) { animation-delay: 60ms; }
+  .js .hero__slide.is-active .bn__text > :nth-child(3) { animation-delay: 120ms; }
+  .js .hero__slide.is-active .bn__text > :nth-child(4) { animation-delay: 180ms; }
+  .js .hero__slide.is-active .bn__item { animation: bn-in 720ms var(--ease-out) both; }
+  .js .hero__slide.is-active .bn__item:nth-child(2) { animation-delay: 90ms; }
+  .js .hero__slide.is-active .bn__item:nth-child(3) { animation-delay: 180ms; }
+  .js .hero__slide.is-active .bn__item:nth-child(4) { animation-delay: 270ms; }
+  .bn__item img { animation: bn-float 5.5s ease-in-out infinite alternate; }
+  .bn__item:nth-child(2n) img { animation-duration: 6.5s; animation-delay: -2s; }
+}
+/* Только сдвиг, без прозрачности: если анимация не запустится, текст и товары всё равно видны */
+@keyframes bn-rise { from { transform: translateY(14px); } to { transform: none; } }
+@keyframes bn-in { from { transform: translateX(48px); } to { transform: none; } }
+@keyframes bn-float { from { transform: translateY(0); } to { transform: translateY(-8px); } }
+@media (max-width: 60rem) {
+  .hero--bn { aspect-ratio: 16 / 10; max-height: none; }
+  .bn__text { width: 52%; gap: var(--space-sm); }
+  .bn__stage { left: 54%; right: var(--gutter); top: 14%; bottom: 16%; }
+  .bn__lead { display: none; }
+}
+@media (max-width: 40rem) {
+  .hero--bn { aspect-ratio: 3 / 4; min-height: 0; }
+  .bn__in { padding-inline: var(--gutter); }
+  .bn__text { left: var(--gutter); right: var(--gutter); top: var(--space-lg); width: auto; transform: none; }
+  .bn__title { font-size: clamp(1.375rem, 6.4vw, 1.875rem); max-width: none; }
+  .bn__brand .bm { width: 104px; }
+  .bn__stage { left: var(--gutter); right: var(--gutter); top: auto; bottom: 52px; height: 36%; transform: none; }
+  .bn__item { left: calc(var(--mx) * 1%); top: calc(var(--my) * 1%); width: calc(var(--mw) * 1%); }
+  .bn__item--wide { display: none; }
+  .bn__item figcaption { font-size: 0.6875rem; white-space: normal; }
+  .bn::before { inset: 20% -40% -30% -20%; }
+}
+
+/* ---------- Переключатель вариантов оформления (только на превью) ---------- */
+.skinbar { position: fixed; left: var(--space-md); bottom: var(--space-md); z-index: var(--z-sticky); display: flex; align-items: center; gap: var(--space-2xs); padding: var(--space-2xs); background: var(--color-surface); border: 1px solid var(--color-rule); border-radius: var(--radius-pill); box-shadow: var(--drop-card); font-family: var(--font-body); }
+.skinbar__label { padding-inline: var(--space-sm) var(--space-2xs); color: var(--color-muted); font-size: var(--text-xs); }
+.skinbar button { min-height: 36px; padding: 0 var(--space-sm); white-space: nowrap; border: 0; border-radius: var(--radius-pill); background: none; color: var(--color-ink); font: inherit; font-size: var(--text-xs); cursor: pointer; transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out); }
+.skinbar button:hover { background: var(--color-accent-wash); }
+.skinbar button[aria-pressed="true"] { background: var(--color-ink); color: var(--color-surface); }
+.skinbar button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 1px; }
+@media (pointer: coarse) { .skinbar button { min-height: 44px; } }
+@media (max-width: 47.99rem) { .skinbar { left: 50%; bottom: calc(76px + env(safe-area-inset-bottom)); transform: translateX(-50%); } .skinbar__label { display: none; } .skinbar button { padding: 0 var(--space-xs); } }

@@ -1,0 +1,97 @@
+/* Варианты оформления на выбор заказчику (13.11). Структура сайта та же, меняются цвет, скругления, шрифты и акценты.
+   Вариант ставится атрибутом data-theme на <html> (переключатель внизу слева, ?skin= в адресе). base: исходное оформление.
+   Селектор без :root, чтобы на /variants/ образцы вариантов показывались рядом внутри своих карточек.
+   После выбора заказчика оставить один вариант и перенести его значения в tokens.css. */
+
+/* ---------- 1. Небо: сочный голубой и солнечный жёлтый ---------- */
+[data-theme="sky"] {
+  --color-paper: #F3F9FE; --color-paper-2: #E4F2FC; --color-paper-3: #CDE7F8; --color-surface: #FFFFFF;
+  --color-ink: #0B3654; --color-ink-2: #1D4E73; --color-muted: #4A6A84;
+  --color-rule: #D3E6F4; --color-rule-2: #B4D3EA; --color-field: #6D93B0;
+  --color-navy: #0B4F86; --color-navy-2: #0E5E9E; --color-navy-3: #1470B8;
+  --color-navy-ink: #F3F9FE; --color-navy-muted: #BFDDF3; --color-navy-rule: #2A6FA6;
+  --color-accent: #0068B8; --color-accent-2: #00559A; --color-accent-wash: #E1F1FD; --color-accent-ink: #FFFFFF;
+  --color-sky: #7DD3FC; --color-focus: #0284C7; --color-focus-dark: #FFD45C;
+  --color-cta: #FFC727; --color-cta-2: #FFB300; --color-cta-ink: #0B3654;
+  --bn-deep: linear-gradient(115deg, #08427E 0%, #0A5BA6 45%, #1690E0 75%, #3DB5F2 100%);
+  --bn-deep-ink: #FFFFFF; --bn-deep-ink-2: #D6EEFF;
+  --bn-light: linear-gradient(115deg, #E8F6FF 0%, #C4E8FF 58%, #8ED3FF 100%);
+  --bn-light-ink: #0B3654; --bn-light-ink-2: #1D4E73;
+  --bn-glow: rgba(255, 199, 39, 0.38);
+  --font-display: "Rubik", system-ui, sans-serif; --font-body: "Nunito Sans", system-ui, sans-serif;
+  --display-weight: 700; --tracking-display: -0.015em;
+  --radius-card: 18px; --radius-card-s: 18px; --radius-input: 12px; --radius-chip: 10px;
+  --shadow-card: 0 10px 30px -18px rgba(11, 79, 134, 0.35);
+}
+[data-theme="sky"] { --topbar-bg: linear-gradient(90deg, #08427E, #0A5BA6); }
+[data-theme="sky"] .topbar { background-color: var(--color-navy); background-image: var(--topbar-bg); }
+
+/* ---------- 2. Контраст: графит и оранжевый ---------- */
+[data-theme="contrast"] {
+  --color-paper: #F6F7F9; --color-paper-2: #ECEFF3; --color-paper-3: #DDE2E9; --color-surface: #FFFFFF;
+  --color-ink: #111C2E; --color-ink-2: #2A374D; --color-muted: #56637A;
+  --color-rule: #E1E5EB; --color-rule-2: #C9D0DA; --color-field: #7A8698;
+  --color-navy: #111C2E; --color-navy-2: #1A273D; --color-navy-3: #25344E;
+  --color-navy-ink: #F6F7F9; --color-navy-muted: #AAB4C4; --color-navy-rule: #2E3D57;
+  --color-accent: #C7400B; --color-accent-2: #A33308; --color-accent-wash: #FFF0E6; --color-accent-ink: #FFFFFF;
+  --color-sky: #FF9A4D; --color-focus: #E8590C; --color-focus-dark: #FFB27A;
+  --color-cta: #FF7A1A; --color-cta-2: #FF9142; --color-cta-ink: #111C2E;
+  --bn-deep: linear-gradient(115deg, #111C2E 0%, #1F2F4D 55%, #2C4470 100%);
+  --bn-deep-ink: #FFFFFF; --bn-deep-ink-2: #C9D2E0;
+  --bn-light: linear-gradient(115deg, #FFF3E8 0%, #FFD3AE 58%, #FF9A4D 100%);
+  --bn-light-ink: #111C2E; --bn-light-ink-2: #2A374D;
+  --bn-glow: rgba(255, 122, 26, 0.42);
+  --font-display: "Montserrat", system-ui, sans-serif; --font-body: "Manrope", system-ui, sans-serif;
+  --display-weight: 800; --tracking-display: -0.02em;
+  --radius-card: 8px; --radius-card-s: 8px; --radius-input: 6px; --radius-chip: 4px;
+  --shadow-card: 0 8px 24px -16px rgba(17, 28, 46, 0.4);
+}
+[data-theme="contrast"] :is(.head h2, .shelf__head h2)::after { content: ""; display: block; width: 56px; height: 5px; margin-top: var(--space-sm); background: var(--color-cta); }
+
+/* ---------- 3. Свежесть: бирюза и лайм ---------- */
+[data-theme="fresh"] {
+  --color-paper: #F2FBF9; --color-paper-2: #E2F6F2; --color-paper-3: #C8EDE6; --color-surface: #FFFFFF;
+  --color-ink: #0D3B3A; --color-ink-2: #1C5250; --color-muted: #47706D;
+  --color-rule: #D2EBE6; --color-rule-2: #B2DCD4; --color-field: #6E9A95;
+  --color-navy: #0B3B3A; --color-navy-2: #0F4C4A; --color-navy-3: #145F5C;
+  --color-navy-ink: #F2FBF9; --color-navy-muted: #A9DCD4; --color-navy-rule: #1F6460;
+  --color-accent: #0B7A72; --color-accent-2: #08625C; --color-accent-wash: #DDF5F0; --color-accent-ink: #FFFFFF;
+  --color-sky: #7FE3D3; --color-focus: #0E9488; --color-focus-dark: #7FE3D3;
+  --color-cta: #B8F23A; --color-cta-2: #A5E01F; --color-cta-ink: #0D3B3A;
+  --bn-deep: linear-gradient(115deg, #0A4846 0%, #0C6B65 45%, #13A394 75%, #35CDB8 100%);
+  --bn-deep-ink: #FFFFFF; --bn-deep-ink-2: #CFF5EE;
+  --bn-light: linear-gradient(115deg, #EEFCF8 0%, #C9F3E9 58%, #9BE9D6 100%);
+  --bn-light-ink: #0D3B3A; --bn-light-ink-2: #1C5250;
+  --bn-glow: rgba(184, 242, 58, 0.4);
+  --font-display: "Unbounded", system-ui, sans-serif; --font-body: "Onest", system-ui, sans-serif;
+  --display-weight: 600; --tracking-display: -0.01em;
+  --text-display-s: clamp(1.75rem, 2.6vw + 0.3rem, 2.75rem); --text-section: clamp(1.5rem, 1.8vw + 0.8rem, 2.375rem);
+  --radius-card: 24px; --radius-card-s: 24px; --radius-input: 14px; --radius-chip: 12px;
+  --shadow-card: 0 12px 30px -20px rgba(11, 59, 58, 0.35);
+}
+[data-theme="fresh"] .btn, [data-theme="fresh"] .bn__cta { border-radius: var(--radius-pill); }
+
+/* ---------- Общее для трёх новых вариантов ---------- */
+[data-theme="sky"], [data-theme="contrast"], [data-theme="fresh"] { --why-bg: linear-gradient(160deg, var(--color-navy) 0%, var(--color-navy-2) 100%); }
+[data-theme="sky"] .cut, [data-theme="contrast"] .cut, [data-theme="fresh"] .cut { corner-shape: round; }
+:is([data-theme="sky"], [data-theme="contrast"], [data-theme="fresh"]) .btn--primary { background: var(--color-cta); color: var(--color-cta-ink); box-shadow: var(--shadow-card); font-weight: 600; }
+:is([data-theme="sky"], [data-theme="contrast"], [data-theme="fresh"]) .btn--primary:hover { background: var(--color-cta-2); }
+:is([data-theme="sky"], [data-theme="contrast"], [data-theme="fresh"]) .pc { border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-card); }
+:is([data-theme="sky"], [data-theme="contrast"], [data-theme="fresh"]) .pgrid > .pc { border-radius: 0; box-shadow: none; }
+:is([data-theme="sky"], [data-theme="contrast"], [data-theme="fresh"]) .label .ico { box-sizing: content-box; padding: var(--space-xs); border-radius: var(--radius-pill); background: var(--color-accent-wash); }
+:is([data-theme="sky"], [data-theme="contrast"], [data-theme="fresh"]) .label:hover .ico { background: var(--color-cta); color: var(--color-cta-ink); }
+:is([data-theme="sky"], [data-theme="contrast"], [data-theme="fresh"]) .why__lead { background: var(--why-bg); }
+:is([data-theme="sky"], [data-theme="contrast"], [data-theme="fresh"]) .final { background: var(--bn-light); }
+:is([data-theme="sky"], [data-theme="contrast"], [data-theme="fresh"]) .shelf__tabs [aria-selected="true"] { border-bottom-color: var(--color-cta); }
+
+/* ---------- Небо: ближе всего к референсу atatrade.by ---------- */
+/* Заголовки прописными, кнопки-капсулы с круглой стрелкой, разделы каталога на миллиметровке */
+[data-theme="sky"] :is(h1, h2) { text-transform: uppercase; letter-spacing: 0; }
+[data-theme="sky"] .bn__title { font-size: clamp(1.625rem, 2.8cqi, 3rem); }
+[data-theme="sky"] :is(.btn--primary, .bn__cta) { border-radius: var(--radius-pill); padding-right: var(--space-2xs); }
+[data-theme="sky"] :is(.btn--primary, .bn__cta)::after { content: ""; flex: none; width: 38px; height: 38px; margin-left: var(--space-xs); border-radius: var(--radius-pill); background: var(--color-cta-ink); -webkit-mask: url("../img/arrow-right.svg") center / 18px no-repeat, linear-gradient(var(--color-ink) 0 0); -webkit-mask-composite: xor; mask: url("../img/arrow-right.svg") center / 18px no-repeat exclude, linear-gradient(var(--color-ink) 0 0); }
+[data-theme="sky"] .btn--wide.btn--primary { padding-left: var(--space-lg); }
+[data-theme="sky"] :is(.dir, .tile) { background-color: var(--color-surface); background-image: linear-gradient(var(--color-rule) 1px, transparent 1px), linear-gradient(90deg, var(--color-rule) 1px, transparent 1px); background-size: 24px 24px; border-color: var(--color-rule); }
+/* Unbounded широкий: в баннере заголовок мельче, чтобы не заходил на товары */
+[data-theme="fresh"] .bn__title { font-size: clamp(1.375rem, 2.5cqi, 2.625rem); }
+@media (max-width: 40rem) { [data-theme="sky"] .bn__title, [data-theme="fresh"] .bn__title { font-size: clamp(1.25rem, 5.6vw, 1.625rem); } }
