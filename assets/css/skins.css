@@ -49,27 +49,33 @@
 [data-theme="contrast"] :is(.head h2, .shelf__head h2)::after { content: ""; display: block; width: 56px; height: 5px; margin-top: var(--space-sm); background: var(--color-cta); }
 
 /* ---------- 3. Свежесть: бирюза и лайм ---------- */
+/* Доработка 13.11 по taste skill и принципам Apple: нейтральная бумага, цвет только в баннерах, тёмных панелях и кнопках;
+   один шрифт Onest (иерархия весом и кеглем), капсулы у всех элементов управления, панели 28px, матовая шапка, мягкая глубина. */
 [data-theme="fresh"] {
-  --color-paper: #F2FBF9; --color-paper-2: #E2F6F2; --color-paper-3: #C8EDE6; --color-surface: #FFFFFF;
-  --color-ink: #0D3B3A; --color-ink-2: #1C5250; --color-muted: #47706D;
-  --color-rule: #D2EBE6; --color-rule-2: #B2DCD4; --color-field: #6E9A95;
+  --color-paper: #F3F7F6; --color-paper-2: #E8F1EF; --color-paper-3: #D5E7E3; --color-surface: #FFFFFF;
+  --color-ink: #0F2E2C; --color-ink-2: #29504D; --color-muted: #55706C;
+  --color-rule: #E0E9E7; --color-rule-2: #C5D7D3; --color-field: #5F837E;
   --color-navy: #0B3B3A; --color-navy-2: #0F4C4A; --color-navy-3: #145F5C;
-  --color-navy-ink: #F2FBF9; --color-navy-muted: #A9DCD4; --color-navy-rule: #1F6460;
-  --color-accent: #0B7A72; --color-accent-2: #08625C; --color-accent-wash: #DDF5F0; --color-accent-ink: #FFFFFF;
-  --color-sky: #7FE3D3; --color-focus: #0E9488; --color-focus-dark: #7FE3D3;
-  --color-cta: #B8F23A; --color-cta-2: #A5E01F; --color-cta-ink: #0D3B3A;
+  --color-navy-ink: #F3F7F6; --color-navy-muted: #A9DCD4; --color-navy-rule: #1F6460;
+  --color-accent: #0B7A72; --color-accent-2: #08625C; --color-accent-wash: #DFF3EF; --color-accent-ink: #FFFFFF;
+  --color-sky: #7FE3D3; --color-focus: #0E9488; --color-focus-dark: #B8F23A;
+  --color-cta: #B8F23A; --color-cta-2: #A8E62A; --color-cta-ink: #0F2E2C;
   --bn-deep: linear-gradient(115deg, #0A4846 0%, #0C6B65 45%, #13A394 75%, #35CDB8 100%);
   --bn-deep-ink: #FFFFFF; --bn-deep-ink-2: #CFF5EE;
   --bn-light: linear-gradient(115deg, #EEFCF8 0%, #C9F3E9 58%, #9BE9D6 100%);
-  --bn-light-ink: #0D3B3A; --bn-light-ink-2: #1C5250;
+  --bn-light-ink: #0F2E2C; --bn-light-ink-2: #29504D;
   --bn-glow: rgba(184, 242, 58, 0.4);
-  --font-display: "Unbounded", system-ui, sans-serif; --font-body: "Onest", system-ui, sans-serif;
-  --display-weight: 600; --tracking-display: -0.01em;
-  --text-display-s: clamp(1.75rem, 2.6vw + 0.3rem, 2.75rem); --text-section: clamp(1.5rem, 1.8vw + 0.8rem, 2.375rem);
-  --radius-card: 24px; --radius-card-s: 24px; --radius-input: 14px; --radius-chip: 12px;
-  --shadow-card: 0 12px 30px -20px rgba(11, 59, 58, 0.35);
+  --font-display: "Onest", system-ui, sans-serif; --font-body: "Onest", system-ui, sans-serif;
+  --display-weight: 600; --tracking-display: -0.032em;
+  --text-section: clamp(1.875rem, 2.3vw + 0.95rem, 3.25rem);
+  --radius-card: 28px; --radius-card-s: 28px; --radius-input: 14px; --radius-chip: 12px;
+  --shadow-card: 0 1px 2px rgba(15, 46, 44, 0.04), 0 12px 32px -18px rgba(15, 46, 44, 0.22);
+  --shadow-lift: 0 2px 4px rgba(15, 46, 44, 0.05), 0 28px 48px -24px rgba(15, 46, 44, 0.34);
+  --glass: rgba(255, 255, 255, 0.72); --glass-rule: rgba(15, 46, 44, 0.08);
+  /* Медный второй сигнал исходной темы здесь не нужен: один акцент (бирюза) и одна кнопка призыва (лайм) */
+  --color-copper: #0B7A72; --color-copper-2: #08625C; --color-copper-wash: #DFF3EF; --color-copper-ink: #FFFFFF;
 }
-[data-theme="fresh"] .btn, [data-theme="fresh"] .bn__cta { border-radius: var(--radius-pill); }
+@media (max-width: 40rem) { [data-theme="fresh"] { --radius-card: 18px; --radius-card-s: 18px; } }
 
 /* ---------- Общее для трёх новых вариантов ---------- */
 [data-theme="sky"], [data-theme="contrast"], [data-theme="fresh"] { --why-bg: linear-gradient(160deg, var(--color-navy) 0%, var(--color-navy-2) 100%); }
@@ -92,6 +98,67 @@
 [data-theme="sky"] :is(.btn--primary, .bn__cta)::after { content: ""; flex: none; width: 38px; height: 38px; margin-left: var(--space-xs); border-radius: var(--radius-pill); background: var(--color-cta-ink); -webkit-mask: url("../img/arrow-right.svg") center / 18px no-repeat, linear-gradient(var(--color-ink) 0 0); -webkit-mask-composite: xor; mask: url("../img/arrow-right.svg") center / 18px no-repeat exclude, linear-gradient(var(--color-ink) 0 0); }
 [data-theme="sky"] .btn--wide.btn--primary { padding-left: var(--space-lg); }
 [data-theme="sky"] :is(.dir, .tile) { background-color: var(--color-surface); background-image: linear-gradient(var(--color-rule) 1px, transparent 1px), linear-gradient(90deg, var(--color-rule) 1px, transparent 1px); background-size: 24px 24px; border-color: var(--color-rule); }
-/* Unbounded широкий: в баннере заголовок мельче, чтобы не заходил на товары */
-[data-theme="fresh"] .bn__title { font-size: clamp(1.375rem, 2.5cqi, 2.625rem); }
-@media (max-width: 40rem) { [data-theme="sky"] .bn__title, [data-theme="fresh"] .bn__title { font-size: clamp(1.25rem, 5.6vw, 1.625rem); } }
+@media (max-width: 40rem) { [data-theme="sky"] .bn__title { font-size: clamp(1.25rem, 5.6vw, 1.625rem); } }
+
+/* ---------- Свежесть: taste skill и принципы Apple ---------- */
+/* Типографика: один шрифт, плотная разрядка крупных строк */
+[data-theme="fresh"] :is(.pc__title, .perks b, .mega__name) { font-weight: 600; letter-spacing: -0.015em; }
+[data-theme="fresh"] :is(.btn, .bn__cta, .link) { font-weight: 600; }
+/* Табличные цифры Onest широкие, в цене карточки они разрежают число */
+[data-theme="fresh"] .pc__price { font-variant-numeric: proportional-nums; letter-spacing: -0.02em; }
+[data-theme="fresh"] .bn__title { max-width: 22ch; letter-spacing: -0.035em; line-height: 1.02; }
+
+/* Форма: все элементы управления капсулы, панели 28px */
+[data-theme="fresh"] :is(.btn, .bn__cta, .icon-btn, .search__input, .search__btn) { border-radius: var(--radius-pill); }
+[data-theme="fresh"] .search__input { padding-left: var(--space-lg); background: var(--color-surface); }
+[data-theme="fresh"] .search__input:hover { border-color: var(--color-ink-2); }
+
+/* Шапка из матового стекла. Это приближение материалов Apple средствами CSS (backdrop-filter), не официальный Liquid Glass */
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  [data-theme="fresh"] .mast { background: var(--glass); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); border-bottom-color: var(--glass-rule); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  [data-theme="fresh"] .mast { background: var(--color-surface); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+
+/* Стрелки баннера: белые круги с мягкой тенью */
+[data-theme="fresh"] .hero__arrow { border: 0; box-shadow: var(--shadow-card); }
+[data-theme="fresh"] .hero__arrow:hover { background: var(--color-accent-wash); color: var(--color-accent-2); }
+
+/* Глубина: товары отдельными карточками на нейтральной бумаге вместо сетки с линиями */
+[data-theme="fresh"] .pc { border-color: transparent; }
+[data-theme="fresh"] .pgrid { gap: var(--space-md); border: 0; background: none; }
+[data-theme="fresh"] .pgrid > .pc { border: 0; border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
+[data-theme="fresh"] .pc__media { border-bottom: 0; }
+[data-theme="fresh"] .pc__actions .btn--quiet { border-color: transparent; background: var(--color-accent-wash); color: var(--color-accent-2); }
+[data-theme="fresh"] .pc__actions .btn--quiet:hover { background: var(--color-cta); color: var(--color-cta-ink); }
+
+/* Преимущества: плитки с иконкой на тонированной подложке, без линии под каждой строкой */
+[data-theme="fresh"] .perks { gap: var(--space-md); border-bottom: 0; }
+[data-theme="fresh"] .perks li { grid-template-columns: minmax(0, 1fr); align-content: start; gap: var(--space-sm); padding: var(--space-lg); border-top: 0; border-radius: var(--radius-card); background: var(--color-surface); box-shadow: var(--shadow-card); }
+[data-theme="fresh"] .perks .ico { box-sizing: content-box; margin-top: 0; padding: var(--space-xs); border-radius: var(--radius-chip); background: var(--color-accent-wash); }
+[data-theme="fresh"] .supply__list { gap: var(--space-sm); }
+[data-theme="fresh"] .supply__list li { padding-bottom: 0; border-bottom: 0; }
+[data-theme="fresh"] .supply__list .ico { box-sizing: content-box; padding: var(--space-2xs); border-radius: var(--radius-pill); background: var(--color-cta); color: var(--color-cta-ink); }
+[data-theme="fresh"] .marquee__set a { border-right-color: transparent; }
+[data-theme="fresh"] :is(.kzmap__pin:hover, .kzmap__pin.is-active) .kzmap__dot { fill: var(--color-cta); stroke: var(--color-cta-ink); stroke-width: 2; }
+[data-theme="fresh"] .foot__socials a { border-radius: var(--radius-pill); }
+
+/* Непрерывные углы, как у Apple. Squircle визуально срезает радиус, поэтому радиус больше */
+@supports (corner-shape: squircle) {
+  [data-theme="fresh"] :is(.cut, .pgrid > .pc, .perks li, .pc) { corner-shape: squircle; border-radius: calc(var(--radius-card) * 1.6); }
+}
+
+/* Движение: отклик на нажатие, подъём карточки под курсором, одно появление при прокрутке */
+@media (prefers-reduced-motion: no-preference) {
+  [data-theme="fresh"] :is(.btn, .bn__cta, .icon-btn):active { transform: scale(0.97); }
+  [data-theme="fresh"] .pgrid > .pc { transition: transform var(--dur-long) var(--ease-out), box-shadow var(--dur-long) var(--ease-out); }
+  @media (hover: hover) {
+    [data-theme="fresh"] .pgrid > .pc:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+  }
+  /* Появление при прокрутке без JS: таймлайн просмотра, только translate и scale, содержимое видно всегда */
+  @supports (animation-timeline: view()) {
+    [data-theme="fresh"] :is(.pgrid > .pc, .why__lead, .perks li, .supply__pic, .final) { animation: fresh-rise linear both; animation-timeline: view(); animation-range: entry 0% entry 55%; }
+  }
+}
+@keyframes fresh-rise { from { translate: 0 40px; scale: 0.97; } to { translate: 0 0; scale: 1; } }

@@ -22,6 +22,7 @@
 /* Hallmark · answered F7 · the pill radius sits on controls only: slider dots, the design variant switcher and the round grounds of the category label icons, which are links */
 /* Hallmark · answered F19 · the three design variants add a 700 display weight so the client can compare them, one variant stays after the choice and the scale returns to three weights */
 /* Hallmark · answered F4 · Split Comfort header carries no action buttons by the client brief 11.11, cobalt fills only the banner action, the catalog action and the area picker result */
+/* Hallmark · waive 29 · frosted glass on the sticky header, fresh variant only · the client asked for an Apple-like finish, the header blurs the catalog under it and turns solid under prefers-reduced-transparency */
 @import url("./tokens.css");
 @import url("./base.css");
 @import url("./skins.css");
