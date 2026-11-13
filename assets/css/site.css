@@ -717,10 +717,11 @@ html:not(.js) .plan__pipe { stroke-dashoffset: 0; }
 .dirs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-md); }
 .dir { display: grid; grid-template-rows: auto minmax(0, 1fr); background: var(--color-paper-2); border: 1px solid transparent; padding: var(--space-lg); gap: var(--space-sm); transition: border-color var(--dur-short) var(--ease-out); }
 .dir:hover { border-color: var(--color-accent); }
-.dir__main { display: flex; justify-content: space-between; gap: var(--space-md); min-height: 96px; color: var(--color-ink); text-decoration: none; }
+/* Картинка раздела крупно над названием (13.11, «картинки побольше»), подложка своего тона карточки */
+.dir__main { display: flex; flex-direction: column; gap: var(--space-md); color: var(--color-ink); text-decoration: none; }
 .dir__title { font-family: var(--font-display); font-size: var(--text-title); font-weight: 500; letter-spacing: var(--tracking-display); line-height: 1.15; }
 .dir__main:hover .dir__title { color: var(--color-accent); }
-.dir__pic { width: 120px; height: 96px; object-fit: contain; flex-shrink: 0; filter: var(--drop-card); }
+.dir__pic { order: -1; width: 100%; height: clamp(150px, 15vw, 190px); padding: var(--space-xs) var(--space-md); object-fit: contain; filter: var(--drop-card); }
 .dir__icon { color: var(--color-accent); }
 .dir__subs { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-md); margin: 0; padding: 0; list-style: none; font-size: var(--text-sm); align-self: end; }
 .dir__subs a { color: var(--color-ink-2); }
@@ -1041,26 +1042,27 @@ img.is-flat { mix-blend-mode: multiply; filter: none !important; box-shadow: non
 /* ---------- Баннеры в формате megaklimat.kz, слайдер по atatrade.by (13.11) ----------
    Во всю ширину 1920×605, весь слайд одна ссылка. Фон градиентом варианта оформления, инженерные окружности как у atatrade.by.
    Смена слайда как у atatrade.by: товары разлетаются от центра и слетаются на новом слайде по очереди, подпись поднимается снизу.
-   Внизу панель: вкладки с полосой автолистания, счётчик, круглые стрелки. Товары слегка плавают и смещаются за курсором. */
+   Внизу панель: вкладки с полосой автолистания, счётчик, круглые стрелки. Анимация одна: смена слайда (без покачивания и параллакса). */
 .hero--bn { --bn-ctrl-h: 56px; --ctrl-ink: var(--bn-deep-ink); height: auto; aspect-ratio: 1920 / 605; min-height: 400px; max-height: 640px; background: var(--color-navy); color: var(--bn-deep-ink); }
 .hero--bn[data-tone="light"] { --ctrl-ink: var(--bn-light-ink); }
 .bn { position: absolute; inset: 0; display: block; overflow: hidden; color: var(--bn-ink); text-decoration: none; }
 .bn--deep { background: var(--bn-deep); --bn-ink: var(--bn-deep-ink); --bn-ink-2: var(--bn-deep-ink-2); --bn-ring: var(--bn-ring-deep); }
 .bn--light { background: var(--bn-light); --bn-ink: var(--bn-light-ink); --bn-ink-2: var(--bn-light-ink-2); --bn-ring: var(--bn-ring-light); }
-.bn::before { content: ""; position: absolute; inset: -40% -10% -40% 30%; background: repeating-radial-gradient(circle at 60% 50%, transparent 0 78px, var(--bn-ring) 79px 80px), radial-gradient(circle at 62% 50%, var(--bn-glow) 0%, transparent 46%); transform: translate3d(calc(var(--px, 0) * 14px), calc(var(--py, 0) * 10px), 0); transition: transform var(--dur-long) var(--ease-out); pointer-events: none; }
+/* Инженерные окружности как у atatrade.by: четыре точных круга (assets/img/rings.svg) за сценой товаров, неподвижно. Цвет из токена через маску */
+.bn::before { content: ""; position: absolute; inset: 0; background-color: var(--bn-ring); -webkit-mask: url("../img/rings.svg") no-repeat 74% 50% / auto 185%; mask: url("../img/rings.svg") no-repeat 74% 50% / auto 185%; pointer-events: none; }
 .bn:focus-visible { outline: 3px solid var(--color-focus-dark); outline-offset: -6px; }
 .bn__in { position: relative; height: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); container-type: inline-size; }
 .bn__text { position: absolute; z-index: 2; left: var(--gutter); top: calc(50% - var(--bn-ctrl-h) / 2); width: min(46%, 620px); display: grid; justify-items: start; gap: var(--space-md); transform: translateY(-50%); }
 .bn__brand { padding: var(--space-xs) var(--space-md); background: var(--color-surface); border-radius: var(--radius-input); box-shadow: var(--shadow-card); }
 .bn__brand .bm { width: 132px; }
-.bn__title { max-width: 22ch; color: var(--bn-ink); font-size: clamp(1.75rem, 3cqi, 3.125rem); line-height: 1.06; }
+.bn__title { max-width: 22ch; color: var(--bn-ink); font-size: clamp(1.75rem, 3cqi, 3.125rem); line-height: 1.06; text-wrap: balance; }
 .bn__lead { max-width: 44ch; margin: 0; color: var(--bn-ink-2); font-size: clamp(0.9375rem, 1.15cqi, 1.1875rem); line-height: 1.45; }
 .bn__cta { display: inline-flex; align-items: center; gap: var(--space-sm); min-height: 48px; margin-top: var(--space-xs); padding: 0 var(--space-lg); border-radius: var(--radius-input); background: var(--color-cta); color: var(--color-cta-ink); font-family: var(--font-display); font-size: var(--text-sm); font-weight: 600; box-shadow: var(--shadow-key); transition: background-color var(--dur-short) var(--ease-out); }
 .bn:hover .bn__cta { background: var(--color-cta-2); }
-.bn__stage { position: absolute; z-index: 1; left: 49%; right: var(--gutter); top: 8%; bottom: calc(var(--bn-ctrl-h) + var(--space-lg)); transform: translate3d(calc(var(--px, 0) * -16px), calc(var(--py, 0) * -10px), 0); transition: transform var(--dur-long) var(--ease-out); }
+.bn__stage { position: absolute; z-index: 1; left: 49%; right: var(--gutter); top: 8%; bottom: calc(var(--bn-ctrl-h) + var(--space-lg)); }
 .bn__item { position: absolute; left: calc(var(--x) * 1%); top: calc(var(--y) * 1%); width: calc(var(--w) * 1%); margin: 0; display: grid; justify-items: center; gap: var(--space-2xs); }
 .bn__item img { display: block; width: 100%; height: auto; filter: var(--drop-unit); }
-.bn__item figcaption { color: var(--bn-ink-2); font-size: clamp(0.6875rem, 0.82cqi, 0.8125rem); line-height: 1.25; text-align: center; white-space: nowrap; }
+.bn__item figcaption { color: var(--bn-ink); font-size: clamp(0.6875rem, 0.82cqi, 0.8125rem); line-height: 1.25; text-align: center; white-space: nowrap; }
 .bn__item--photo img { aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-card); filter: none; box-shadow: var(--shadow-photo); }
 .hero--bn + .picker-wrap { margin-top: var(--space-lg); }
 /* Панель слайдера: вкладки слева под текстом, счётчик и стрелки справа. Цвет берётся от тона текущего слайда */
@@ -1097,15 +1099,12 @@ img.is-flat { mix-blend-mode: multiply; filter: none !important; box-shadow: non
   .hero__slide.is-entering .bn__text > :nth-child(2) { animation-delay: 190ms; }
   .hero__slide.is-entering .bn__text > :nth-child(3) { animation-delay: 260ms; }
   .hero__slide.is-entering .bn__text > :nth-child(4) { animation-delay: 330ms; }
-  .bn__item img { animation: bn-float 5.5s ease-in-out infinite alternate; }
-  .bn__item:nth-child(2n) img { animation-duration: 6.5s; animation-delay: -2s; }
 }
 /* Первый слайд при загрузке не анимируется: заголовок и товары видны сразу. --ex/--ey считает site.js */
 @keyframes bn-out { to { opacity: 0; transform: translate(calc(var(--ex, 80px) * 1.3), calc(var(--ey, 0px) * 1.3)) scale(0.1); } }
 @keyframes bn-assemble { from { opacity: 0; transform: translate(var(--ex, 80px), var(--ey, 0px)) scale(0.65); } }
 @keyframes bn-text-out { to { opacity: 0; transform: translateY(-10px); } }
 @keyframes bn-text-in { from { opacity: 0; transform: translateY(14px); } }
-@keyframes bn-float { from { transform: translateY(0); } to { transform: translateY(-8px); } }
 @keyframes bn-bar { to { transform: scaleX(1); } }
 @media (max-width: 60rem) {
   .hero--bn { aspect-ratio: 16 / 10; max-height: none; }
@@ -1131,7 +1130,7 @@ img.is-flat { mix-blend-mode: multiply; filter: none !important; box-shadow: non
   .bn__item { left: calc(var(--mx) * 1%); top: calc(var(--my) * 1%); width: calc(var(--mw) * 1%); }
   .bn__item--wide { display: none; }
   .bn__item figcaption { font-size: 0.6875rem; white-space: normal; }
-  .bn::before { inset: 20% -40% -30% -20%; }
+  .bn::before { -webkit-mask-position: 50% 78%; mask-position: 50% 78%; -webkit-mask-size: auto 120%; mask-size: auto 120%; }
 }
 
 /* ---------- Переключатель вариантов оформления (только на превью) ---------- */

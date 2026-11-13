@@ -567,18 +567,6 @@
     });
   }
 
-  /* Баннеры: сцена с товарами и окружности слегка смещаются за курсором */
-  if (!reduced && matchMedia('(pointer: fine)').matches) {
-    $$('.hero--bn').forEach((hero) => {
-      hero.addEventListener('pointermove', (e) => {
-        const r = hero.getBoundingClientRect();
-        hero.style.setProperty('--px', ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
-        hero.style.setProperty('--py', ((e.clientY - r.top) / r.height - 0.5).toFixed(3));
-      });
-      hero.addEventListener('pointerleave', () => { hero.style.setProperty('--px', 0); hero.style.setProperty('--py', 0); });
-    });
-  }
-
   /* Единственное появление блоков */
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });

@@ -13,11 +13,10 @@
   --color-accent: #0068B8; --color-accent-2: #00559A; --color-accent-wash: #E1F1FD; --color-accent-ink: #FFFFFF;
   --color-sky: #7DD3FC; --color-focus: #0284C7; --color-focus-dark: #FFD45C;
   --color-cta: #FFC727; --color-cta-2: #FFB300; --color-cta-ink: #0B3654;
-  --bn-deep: linear-gradient(115deg, #08427E 0%, #0A5BA6 45%, #1690E0 75%, #3DB5F2 100%);
+  --bn-deep: linear-gradient(115deg, #08427E 0%, #0A5BA6 50%, #1478C8 100%);
   --bn-deep-ink: #FFFFFF; --bn-deep-ink-2: #D6EEFF;
   --bn-light: linear-gradient(115deg, #E8F6FF 0%, #C4E8FF 58%, #8ED3FF 100%);
   --bn-light-ink: #0B3654; --bn-light-ink-2: #1D4E73;
-  --bn-glow: rgba(255, 199, 39, 0.38);
   --font-display: "Rubik", system-ui, sans-serif; --font-body: "Nunito Sans", system-ui, sans-serif;
   --display-weight: 700; --tracking-display: -0.015em;
   --radius-card: 18px; --radius-card-s: 18px; --radius-input: 12px; --radius-chip: 10px;
@@ -40,7 +39,6 @@
   --bn-deep-ink: #FFFFFF; --bn-deep-ink-2: #C9D2E0;
   --bn-light: linear-gradient(115deg, #FFF3E8 0%, #FFD3AE 58%, #FF9A4D 100%);
   --bn-light-ink: #111C2E; --bn-light-ink-2: #2A374D;
-  --bn-glow: rgba(255, 122, 26, 0.42);
   --font-display: "Montserrat", system-ui, sans-serif; --font-body: "Manrope", system-ui, sans-serif;
   --display-weight: 800; --tracking-display: -0.02em;
   --radius-card: 8px; --radius-card-s: 8px; --radius-input: 6px; --radius-chip: 4px;
@@ -60,11 +58,10 @@
   --color-accent: #0B7A72; --color-accent-2: #08625C; --color-accent-wash: #DFF3EF; --color-accent-ink: #FFFFFF;
   --color-sky: #7FE3D3; --color-focus: #0E9488; --color-focus-dark: #B8F23A;
   --color-cta: #B8F23A; --color-cta-2: #A8E62A; --color-cta-ink: #0F2E2C;
-  --bn-deep: linear-gradient(115deg, #0A4846 0%, #0C6B65 45%, #13A394 75%, #35CDB8 100%);
+  --bn-deep: linear-gradient(115deg, #0A4846 0%, #0C6B65 55%, #0E8077 100%);
   --bn-deep-ink: #FFFFFF; --bn-deep-ink-2: #CFF5EE;
   --bn-light: linear-gradient(115deg, #EEFCF8 0%, #C9F3E9 58%, #9BE9D6 100%);
   --bn-light-ink: #0F2E2C; --bn-light-ink-2: #29504D;
-  --bn-glow: rgba(184, 242, 58, 0.4);
   --font-display: "Onest", system-ui, sans-serif; --font-body: "Onest", system-ui, sans-serif;
   --display-weight: 600; --tracking-display: -0.032em;
   --text-section: clamp(1.875rem, 2.3vw + 0.95rem, 3.25rem);
@@ -90,13 +87,13 @@
 :is([data-theme="sky"], [data-theme="contrast"], [data-theme="fresh"]) .shelf__tabs [aria-selected="true"] { border-bottom-color: var(--color-cta); }
 
 /* ---------- Небо: ближе всего к референсу atatrade.by ---------- */
-/* Заголовки прописными, кнопки-капсулы с круглой стрелкой, разделы каталога на миллиметровке */
+/* Заголовки прописными, кнопки-капсулы с круглой стрелкой. «Миллиметровку» на плитках разделов убрали 13.11 по просьбе заказчика */
 [data-theme="sky"] :is(h1, h2) { text-transform: uppercase; letter-spacing: 0; }
 [data-theme="sky"] .bn__title { font-size: clamp(1.625rem, 2.8cqi, 3rem); }
 [data-theme="sky"] :is(.btn--primary, .bn__cta) { border-radius: var(--radius-pill); padding-right: var(--space-2xs); }
 [data-theme="sky"] :is(.btn--primary, .bn__cta)::after { content: ""; flex: none; width: 38px; height: 38px; margin-left: var(--space-xs); border-radius: var(--radius-pill); background: var(--color-cta-ink); -webkit-mask: url("../img/arrow-right.svg") center / 18px no-repeat, linear-gradient(var(--color-ink) 0 0); -webkit-mask-composite: xor; mask: url("../img/arrow-right.svg") center / 18px no-repeat exclude, linear-gradient(var(--color-ink) 0 0); }
 [data-theme="sky"] .btn--wide.btn--primary { padding-left: var(--space-lg); }
-[data-theme="sky"] :is(.dir, .tile) { background-color: var(--color-surface); background-image: linear-gradient(var(--color-rule) 1px, transparent 1px), linear-gradient(90deg, var(--color-rule) 1px, transparent 1px); background-size: 24px 24px; border-color: var(--color-rule); }
+[data-theme="sky"] :is(.dir, .tile) { background-color: var(--color-surface); border-color: var(--color-rule); }
 @media (max-width: 40rem) { [data-theme="sky"] .bn__title { font-size: clamp(1.25rem, 5.6vw, 1.625rem); } }
 
 /* ---------- Свежесть: taste skill и принципы Apple ---------- */
