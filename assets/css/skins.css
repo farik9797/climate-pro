@@ -83,7 +83,6 @@
 :is([data-theme="sky"], [data-theme="contrast"], [data-theme="fresh"]) .btn--primary { background: var(--color-cta); color: var(--color-cta-ink); box-shadow: var(--shadow-card); font-weight: 600; }
 :is([data-theme="sky"], [data-theme="contrast"], [data-theme="fresh"]) .btn--primary:hover { background: var(--color-cta-2); }
 :is([data-theme="sky"], [data-theme="contrast"], [data-theme="fresh"]) .pc { border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-card); }
-:is([data-theme="sky"], [data-theme="contrast"], [data-theme="fresh"]) .pgrid > .pc { border-radius: 0; box-shadow: none; }
 :is([data-theme="sky"], [data-theme="contrast"], [data-theme="fresh"]) .label .ico { box-sizing: content-box; padding: var(--space-xs); border-radius: var(--radius-pill); background: var(--color-accent-wash); }
 :is([data-theme="sky"], [data-theme="contrast"], [data-theme="fresh"]) .label:hover .ico { background: var(--color-cta); color: var(--color-cta-ink); }
 :is([data-theme="sky"], [data-theme="contrast"], [data-theme="fresh"]) .why__lead { background: var(--why-bg); }
@@ -125,10 +124,8 @@
 [data-theme="fresh"] .hero__arrow { border: 0; box-shadow: var(--shadow-card); }
 [data-theme="fresh"] .hero__arrow:hover { background: var(--color-accent-wash); color: var(--color-accent-2); }
 
-/* Глубина: товары отдельными карточками на нейтральной бумаге вместо сетки с линиями */
+/* Глубина: товары отдельными карточками на нейтральной бумаге */
 [data-theme="fresh"] .pc { border-color: transparent; }
-[data-theme="fresh"] .pgrid { gap: var(--space-md); border: 0; background: none; }
-[data-theme="fresh"] .pgrid > .pc { border: 0; border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
 [data-theme="fresh"] .pc__media { border-bottom: 0; }
 [data-theme="fresh"] .pc__actions .btn--quiet { border-color: transparent; background: var(--color-accent-wash); color: var(--color-accent-2); }
 [data-theme="fresh"] .pc__actions .btn--quiet:hover { background: var(--color-cta); color: var(--color-cta-ink); }
@@ -146,15 +143,15 @@
 
 /* Непрерывные углы, как у Apple. Squircle визуально срезает радиус, поэтому радиус больше */
 @supports (corner-shape: squircle) {
-  [data-theme="fresh"] :is(.cut, .pgrid > .pc, .perks li, .pc) { corner-shape: squircle; border-radius: calc(var(--radius-card) * 1.6); }
+  [data-theme="fresh"] :is(.cut, .perks li, .pc) { corner-shape: squircle; border-radius: calc(var(--radius-card) * 1.6); }
 }
 
 /* Движение: отклик на нажатие, подъём карточки под курсором, одно появление при прокрутке */
 @media (prefers-reduced-motion: no-preference) {
   [data-theme="fresh"] :is(.btn, .bn__cta, .icon-btn):active { transform: scale(0.97); }
-  [data-theme="fresh"] .pgrid > .pc { transition: transform var(--dur-long) var(--ease-out), box-shadow var(--dur-long) var(--ease-out); }
+  [data-theme="fresh"] .pc { transition: transform var(--dur-long) var(--ease-out), box-shadow var(--dur-long) var(--ease-out); }
   @media (hover: hover) {
-    [data-theme="fresh"] .pgrid > .pc:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+    [data-theme="fresh"] .pc:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
   }
   /* Появление при прокрутке без JS: таймлайн просмотра, только translate и scale, содержимое видно всегда */
   @supports (animation-timeline: view()) {

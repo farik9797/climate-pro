@@ -345,26 +345,28 @@ details[open] > summary .drawer__chev { transform: rotate(180deg); }
 .pc__actions { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-sm); }
 .pc__actions .btn { flex: 1 1 auto; padding: 0 var(--space-sm); font-size: var(--text-xs); }
 
-/* Сетка товаров на главной: по 5 в ряд с общими границами, вкладки справа от заголовка (как на megaklimat.kz) */
+/* Сетка товаров на главной: по 4 в ряд отдельными карточками, как в «Похожих товарах» (бриф 13.11), вкладки справа от заголовка */
 .shelf__head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs) var(--space-lg); margin-bottom: var(--space-lg); }
 .shelf__head h2 { margin-right: auto; }
 .shelf__tabs { display: flex; gap: var(--space-md); }
 .shelf__tabs button { min-height: 44px; padding: 0; border: 0; border-bottom: 2px solid transparent; background: none; color: var(--color-ink-2); font-size: var(--text-sm); cursor: pointer; transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out); }
 .shelf__tabs button:hover { color: var(--color-ink); }
 .shelf__tabs button[aria-selected="true"] { color: var(--color-ink); border-bottom-color: var(--color-accent); }
-.pgrid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid var(--color-rule); border-left: 1px solid var(--color-rule); background: var(--color-surface); }
-.pgrid > .pc { border: 0; border-right: 1px solid var(--color-rule); border-bottom: 1px solid var(--color-rule); }
-.pgrid > .pc:hover { z-index: 1; box-shadow: 0 0 0 1px var(--color-accent); }
+.pgrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-md); }
 .pc--compact .pc__media { aspect-ratio: 5 / 4; background: var(--color-surface); }
 .pc--compact .pc__media img { padding: var(--space-lg) var(--space-sm) var(--space-xs); }
 .pc--compact .pc__body { padding: var(--space-xs) var(--space-md) var(--space-md); }
 .pc--compact .pc__title { font-size: var(--text-md); }
 .pc--compact .pc__price { padding-top: var(--space-xs); font-size: var(--text-md); }
 .pc--compact .pc__actions .btn { flex-basis: 100%; }
-@media (max-width: 80rem) { .pgrid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-@media (max-width: 60rem) { .pgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* Три в ряд: шесть карточек, чтобы ряды были полными */
+@media (max-width: 80rem) { .pgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (60rem < width <= 80rem) { .pgrid > :nth-child(n+7) { display: none; } }
+@media (max-width: 60rem) { .pgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 40rem) {
-  .pgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* На телефоне лента с прокруткой вбок, как «Похожие товары» */
+  .pgrid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 78%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-block: var(--space-2xs); }
+  .pgrid > * { scroll-snap-align: start; }
   .shelf__tabs { order: 3; flex-basis: 100%; overflow-x: auto; scrollbar-width: none; }
   .pc--compact .pc__body { padding-inline: var(--space-sm); }
 }
@@ -628,7 +630,16 @@ html:not(.js) .plan__pipe { stroke-dashoffset: 0; }
 .cat-head__in { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: var(--gap-columns); align-items: center; padding-top: var(--space-xs); }
 .cat-head__in--flat { grid-template-columns: minmax(0, 1fr) auto; align-items: end; }
 .cat-head__lead { margin-top: var(--space-sm); color: var(--color-ink-2); }
-.cat-head__pic { width: 100%; max-height: 200px; object-fit: contain; filter: var(--drop-unit); }
+.cat-head__pic { width: 100%; max-height: 200px; object-fit: contain; filter: var(--drop-unit); view-transition-name: cat-pic; }
+/* Переход между подразделами (бриф 13.11): при нажатии на «Канальные» и т. д. картинка оборудования сменяется плавно.
+   View Transitions между страницами (Chrome, Safari 18+); где их нет, страница просто открывается */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  ::view-transition-old(cat-pic) { animation: cat-pic-out var(--dur-short) var(--ease-in) both; }
+  ::view-transition-new(cat-pic) { animation: cat-pic-in var(--dur-long) var(--ease-out) both; }
+}
+@keyframes cat-pic-out { to { opacity: 0; transform: translateX(-24px) scale(0.96); } }
+@keyframes cat-pic-in { from { opacity: 0; transform: translateX(40px) scale(0.96); } }
 .subnav { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-lg); }
 .subnav a { display: inline-flex; align-items: center; gap: var(--space-xs); min-height: 44px; padding: 0 var(--space-md); border: 1px solid var(--color-rule-2); border-radius: var(--radius-input); background: var(--color-surface); color: var(--color-ink); font-size: var(--text-sm); text-decoration: none; white-space: nowrap; transition: border-color var(--dur-short) var(--ease-out); }
 .subnav a:hover { border-color: var(--color-ink); }
@@ -1020,8 +1031,10 @@ img.is-flat { mix-blend-mode: multiply; filter: none !important; box-shadow: non
 .why__pic { position: static; align-self: end; justify-self: end; width: 90%; margin-right: calc(-1 * var(--why-pad) - var(--space-xl)); }
 @media (max-width: 60rem) { .why__lead { --why-pad: var(--space-lg); } }
 
-/* Подложка фото товара белая, как у магазинов-источников: карточка не сливается с серым фоном страницы, белый блок читается по своему контуру (13.11) */
-.pc__media { background: var(--color-surface); border-bottom: 1px solid var(--color-rule); }
+/* Подложка фото товара тонированная, как в «Похожих товарах» (бриф 13.11). Белые блоки с магазинов вырезаны моделью macOS
+   (src/tools/lift-photos.mjs) и не сливаются с подложкой. Кадр без вырезки (пульт, инфографика) лежит на белой плашке. */
+.pc__media { background: var(--color-paper-2); }
+.pc__media:has(> img.is-flat) { background: var(--color-surface); border-bottom: 1px solid var(--color-rule); }
 .gallery__main { background: var(--color-surface); border: 1px solid var(--color-rule); }
 .gallery__thumb { background: var(--color-surface); border-color: var(--color-rule); }
 
