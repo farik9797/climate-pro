@@ -563,27 +563,6 @@
     }
   }
 
-  /* Переключатель вариантов оформления (превью для заказчика, 13.11): вариант живёт в localStorage и в ?skin= */
-  const skinbar = $('[data-skinbar]');
-  // Образцы вариантов на /variants/ показываются своими шрифтами
-  $$('body [data-theme]').forEach((el) => { if (window.scSkinFonts) window.scSkinFonts(el.dataset.theme); });
-  if (skinbar) {
-    const mark = () => $$('[data-skin-set]', skinbar).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.skinSet === document.documentElement.dataset.theme)));
-    mark();
-    skinbar.addEventListener('click', (e) => {
-      const b = e.target.closest('[data-skin-set]');
-      if (!b) return;
-      const k = b.dataset.skinSet;
-      document.documentElement.dataset.theme = k;
-      try { localStorage.setItem('sc-skin', k); } catch (err) { /* без хранилища вариант держится до перехода */ }
-      if (window.scSkinFonts) window.scSkinFonts(k);
-      const u = new URL(location.href);
-      u.searchParams.set('skin', k);
-      history.replaceState(null, '', u);
-      mark();
-    });
-  }
-
   /* Единственное появление блоков */
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });

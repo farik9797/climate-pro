@@ -1,0 +1,71 @@
+/* Оформление «Свежесть» (выбор заказчика 13.11), слой правил поверх site.css. Значения цветов, шрифтов и радиусов в tokens.css.
+   Префикс :root держит ту же специфичность, что была у [data-theme="fresh"], поэтому порядок применения не изменился.
+   Доработано по taste skill и принципам Apple: один шрифт, капсулы, матовая шапка, отдельные карточки, мягкая глубина. */
+
+/* ---------- Кнопка призыва, карточки, иконки, панели ---------- */
+:root .cut { corner-shape: round; }
+:root .btn--primary { background: var(--color-cta); color: var(--color-cta-ink); box-shadow: var(--shadow-card); font-weight: 600; }
+:root .btn--primary:hover { background: var(--color-cta-2); }
+:root .pc { border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-card); }
+:root .label .ico { box-sizing: content-box; padding: var(--space-xs); border-radius: var(--radius-pill); background: var(--color-accent-wash); }
+:root .label:hover .ico { background: var(--color-cta); color: var(--color-cta-ink); }
+:root .why__lead { background: var(--why-bg); }
+:root .final { background: var(--bn-light); }
+:root .shelf__tabs [aria-selected="true"] { border-bottom-color: var(--color-cta); }
+
+/* ---------- Типографика, форма, глубина, движение ---------- */
+/* Типографика: один шрифт, плотная разрядка крупных строк */
+:root :is(.pc__title, .perks b, .mega__name) { font-weight: 600; letter-spacing: -0.015em; }
+:root :is(.btn, .bn__cta, .link) { font-weight: 600; }
+/* Табличные цифры Onest широкие, в цене карточки они разрежают число */
+:root .pc__price { font-variant-numeric: proportional-nums; letter-spacing: -0.02em; }
+:root .bn__title { max-width: 22ch; letter-spacing: -0.035em; line-height: 1.02; }
+
+/* Форма: все элементы управления капсулы, панели 28px */
+:root :is(.btn, .bn__cta, .icon-btn, .search__input, .search__btn) { border-radius: var(--radius-pill); }
+:root .search__input { padding-left: var(--space-lg); background: var(--color-surface); }
+:root .search__input:hover { border-color: var(--color-ink-2); }
+
+/* Шапка из матового стекла. Это приближение материалов Apple средствами CSS (backdrop-filter), не официальный Liquid Glass */
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root .mast { background: var(--glass); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); border-bottom-color: var(--glass-rule); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  :root .mast { background: var(--color-surface); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+
+/* Глубина: товары отдельными карточками на нейтральной бумаге */
+:root .pc { border-color: transparent; }
+:root .pc__media { border-bottom: 0; }
+:root .pc__actions .btn--quiet { border-color: transparent; background: var(--color-accent-wash); color: var(--color-accent-2); }
+:root .pc__actions .btn--quiet:hover { background: var(--color-cta); color: var(--color-cta-ink); }
+
+/* Преимущества: плитки с иконкой на тонированной подложке, без линии под каждой строкой */
+:root .perks { gap: var(--space-md); border-bottom: 0; }
+:root .perks li { grid-template-columns: minmax(0, 1fr); align-content: start; gap: var(--space-sm); padding: var(--space-lg); border-top: 0; border-radius: var(--radius-card); background: var(--color-surface); box-shadow: var(--shadow-card); }
+:root .perks .ico { box-sizing: content-box; margin-top: 0; padding: var(--space-xs); border-radius: var(--radius-chip); background: var(--color-accent-wash); }
+:root .supply__list { gap: var(--space-sm); }
+:root .supply__list li { padding-bottom: 0; border-bottom: 0; }
+:root .supply__list .ico { box-sizing: content-box; padding: var(--space-2xs); border-radius: var(--radius-pill); background: var(--color-cta); color: var(--color-cta-ink); }
+:root .marquee__set a { border-right-color: transparent; }
+:root :is(.kzmap__pin:hover, .kzmap__pin.is-active) .kzmap__dot { fill: var(--color-cta); stroke: var(--color-cta-ink); stroke-width: 2; }
+:root .foot__socials a { border-radius: var(--radius-pill); }
+
+/* Непрерывные углы, как у Apple. Squircle визуально срезает радиус, поэтому радиус больше */
+@supports (corner-shape: squircle) {
+  :root :is(.cut, .perks li, .pc) { corner-shape: squircle; border-radius: calc(var(--radius-card) * 1.6); }
+}
+
+/* Движение: отклик на нажатие, подъём карточки под курсором, одно появление при прокрутке */
+@media (prefers-reduced-motion: no-preference) {
+  :root :is(.btn, .bn__cta, .icon-btn, .bn-circ):active { transform: scale(0.97); }
+  :root .pc { transition: transform var(--dur-long) var(--ease-out), box-shadow var(--dur-long) var(--ease-out); }
+  @media (hover: hover) {
+    :root .pc:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+  }
+  /* Появление при прокрутке без JS: таймлайн просмотра, только translate и scale, содержимое видно всегда */
+  @supports (animation-timeline: view()) {
+    :root :is(.pgrid > .pc, .why__lead, .perks li, .supply__pic, .final) { animation: fresh-rise linear both; animation-timeline: view(); animation-range: entry 0% entry 55%; }
+  }
+}
+@keyframes fresh-rise { from { translate: 0 40px; scale: 0.97; } to { translate: 0 0; scale: 1; } }
