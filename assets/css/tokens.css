@@ -1,5 +1,6 @@
-/* Split Comfort: токены дизайн-системы. Оформление «Свежесть» выбрано заказчиком 13.11: бирюза и лайм на нейтральной бумаге,
-   один шрифт Onest (грузится в <head>), капсулы у элементов управления, панели 28px. IBM Plex Mono для кодов моделей. */
+/* Split Comfort: токены дизайн-системы. Оформление по atatrade.by (14.11): синяя палитра на белой бумаге,
+   один шрифт Golos Text (грузится в <head>), кнопки-капсулы с круглой стрелкой, панели 20px с тонкой рамкой, без теней.
+   IBM Plex Mono для кодов моделей. Прежнее оформление «Свежесть»: .backup/tokens-2026-11-14-before-ata.css. */
 @font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 500; font-display: swap; src: url("../fonts/plex-mono-latin-500.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 
 
@@ -9,74 +10,77 @@
   /* Отступы */
   --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
 
-  /* Кегли */
+  /* Кегли: заголовки прописными, поэтому крупные строки меньше прежних */
   --text-xs: 0.8125rem; --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.125rem; --text-xl: 1.5rem; --text-2xl: 1.875rem; --text-3xl: 2.5rem;
-  --text-display-s: clamp(2rem, 3.1vw + 0.3rem, 3.25rem);
-  --text-display: clamp(2.5rem, 4.4vw + 0.8rem, 4.75rem);
-  --text-section: clamp(1.875rem, 2.3vw + 0.95rem, 3.25rem);
+  --text-display-s: clamp(1.75rem, 2vw + 0.6rem, 2.625rem);
+  --text-display: clamp(1.875rem, 2.6vw + 0.6rem, 3rem);
+  --text-section: clamp(1.75rem, 2.4vw + 0.5rem, 2.875rem);
   --text-title: clamp(1.125rem, 0.5vw + 0.875rem, 1.375rem);
-  --text-lead: clamp(1.0625rem, 0.3vw + 0.95rem, 1.25rem);
+  --text-lead: clamp(1.0625rem, 0.3vw + 0.95rem, 1.125rem);
 
   /* Движение */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-in: cubic-bezier(0.7, 0, 0.84, 0); --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --dur-micro: 120ms; --dur-short: 220ms; --dur-long: 420ms;
 
   /* Сетка */
-  --container: 1440px; --gutter: 64px; --gap-columns: 32px;
-  --section-gap-s: 96px; --section-gap: 64px; --section-gap-l: 96px;
-  --header-sticky: 76px;
+  --container: 1360px; --gutter: 40px; --gap-columns: 32px;
+  --section-gap-s: 96px; --section-gap: 72px; --section-gap-l: 104px;
+  --header-sticky: 72px;
 
   --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
 
-  /* Бумага: холодный почти белый, на нём белые поверхности */
-  --color-paper: #F3F7F6; --color-paper-2: #E8F1EF; --color-paper-3: #D5E7E3;
+  /* Бумага: белая, подложки фото и подвал в холодном светло-сером */
+  --color-paper: #FFFFFF; --color-paper-2: #F1F5F8; --color-paper-3: #E3EAF0;
   --color-surface: #FFFFFF;
 
-  /* Чернила: графит из макетов (#0c2445) */
-  --color-ink: #0F2E2C; --color-ink-2: #29504D; --color-muted: #55706C;
-  --color-rule: #E0E9E7; --color-rule-2: #C5D7D3; --color-field: #5F837E;
+  /* Чернила */
+  --color-ink: #14273D; --color-ink-2: #2B3642; --color-muted: #5D6B79;
+  --color-rule: #DCE3E8; --color-rule-2: #CFDDEA; --color-field: #8494A6;
 
-  /* Тёмная поверхность: шапка, футер, B2B */
-  --color-navy: #0B3B3A; --color-navy-2: #0F4C4A; --color-navy-3: #145F5C;
-  --color-navy-ink: #F3F7F6; --color-navy-muted: #A9DCD4; --color-navy-rule: #1F6460;
+  /* Тёмная поверхность: верхняя полоса, баннер, синие панели */
+  --color-navy: #082457; --color-navy-2: #0B357F; --color-navy-3: #1452B0;
+  --color-navy-ink: #FFFFFF; --color-navy-muted: #E2ECF8; --color-navy-rule: #2B4F8F;
+  --on-navy-rule: rgba(255, 255, 255, 0.45); --on-navy-wash: rgba(255, 255, 255, 0.16); --color-watermark: #DDE6EE;
 
-  /* Сигнал: кобальт из макетов (#1459b0) и голубой для тёмного */
-  --color-accent: #0B7A72; --color-accent-2: #08625C; --color-accent-wash: #DFF3EF; --color-accent-ink: #FFFFFF;
-  --color-sky: #7FE3D3; --color-focus: #0E9488; --color-focus-dark: #B8F23A;
+  /* Сигнал: синий atatrade */
+  --color-accent: #0A5FA8; --color-accent-2: #084D8A; --color-accent-wash: #E8F1F9; --color-accent-ink: #FFFFFF;
+  --color-sky: #9FD4FF; --color-focus: #0A5FA8; --color-focus-dark: #FFFFFF;
 
-  /* Второй сигнал: медь монтажной трассы. Единственный тёплый цвет, чтобы сайт не был холодным */
-  --color-copper: #0B7A72; --color-copper-2: #08625C; --color-copper-wash: #DFF3EF; --color-copper-ink: #FFFFFF;
+  /* Второй сигнал совпадает с первым: в оформлении один цвет */
+  --color-copper: #0A5FA8; --color-copper-2: #084D8A; --color-copper-wash: #E8F1F9; --color-copper-ink: #FFFFFF;
 
   --color-error: oklch(50% 0.19 27); --color-success: oklch(46% 0.11 155);
 
   /* Шрифты */
-  --font-display: "Onest", system-ui, sans-serif;
-  --font-body: "Onest", system-ui, sans-serif;
+  --font-display: "Golos Text", system-ui, sans-serif;
+  --font-body: "Golos Text", system-ui, sans-serif;
   --font-outlier: "IBM Plex Mono", ui-monospace, monospace;
 
-  /* Форма: панели срезаны по двум противоположным углам */
-  --radius-card: 28px; --radius-card-s: 28px; --radius-input: 14px; --radius-pill: 999px; --radius-chip: 12px;
+  /* Форма: панели 20px, элементы управления капсулы */
+  --radius-card: 20px; --radius-card-s: 20px; --radius-input: 14px; --radius-pill: 999px; --radius-chip: 12px;
   --rule-hair: 1px;
-  --shadow-card: 0 1px 2px rgba(15, 46, 44, 0.04), 0 12px 32px -18px rgba(15, 46, 44, 0.22);
-  --shadow-raised: 0 18px 40px -22px oklch(26.5% 0.07 258 / 0.38);
-  --shadow-key: inset 0 -2px 0 oklch(26.5% 0.09 258 / 0.42), 0 1px 2px oklch(26.5% 0.07 258 / 0.2);
+  --shadow-card: 0 0 0 0 rgba(0, 38, 77, 0);
+  --shadow-raised: 0 14px 28px -14px rgba(0, 38, 77, 0.45);
+  --shadow-key: 0 0 0 0 rgba(0, 38, 77, 0);
   --drop-unit: drop-shadow(0 22px 26px oklch(26.5% 0.07 258 / 0.28)); --drop-card: drop-shadow(0 10px 12px oklch(26.5% 0.07 258 / 0.2)); --color-scrim: oklch(26.5% 0.07 258 / 0.5);
-  --tracking-display: -0.032em; --display-weight: 600;
+  --tracking-display: 0.005em; --display-weight: 700;
 
-  /* Кнопка призыва (лайм) и фоны баннеров главной: тёмный и светлый тон слайда */
-  --color-cta: #B8F23A; --color-cta-2: #A8E62A; --color-cta-ink: #0F2E2C;
-  --bn-deep: linear-gradient(115deg, #0A4846 0%, #0C6B65 55%, #0E8077 100%);
-  --bn-deep-ink: #FFFFFF; --bn-deep-ink-2: #CFF5EE;
-  --bn-light: linear-gradient(115deg, #EEFCF8 0%, #C9F3E9 58%, #9BE9D6 100%);
-  --bn-light-ink: #0F2E2C; --bn-light-ink-2: #29504D;
+  /* Кнопка призыва и фоны баннеров главной: тёмный и светлый тон слайда */
+  --color-cta: #0A5FA8; --color-cta-2: #084D8A; --color-cta-ink: #FFFFFF;
+  --grad-blue: radial-gradient(70% 85% at 68% 46%, #2466CE 0%, #1452B0 30%, #0B357F 62%, #082457 100%);
+  --grad-blue-left: radial-gradient(70% 90% at 25% 50%, #2466CE 0%, #1452B0 34%, #0B357F 68%, #082457 100%);
+  --bn-deep: var(--grad-blue);
+  --bn-deep-ink: #FFFFFF; --bn-deep-ink-2: #E2ECF8;
+  --bn-light: radial-gradient(70% 85% at 68% 46%, #FFFFFF 0%, #EDF4FB 46%, #D6E6F5 100%);
+  --bn-light-ink: #0A5FA8; --bn-light-ink-2: #2B3642;
   --shadow-photo: 0 30px 60px -30px oklch(0% 0 0 / 0.55);
   --topbar-bg: var(--color-navy);
 
-  /* Оформление «Свежесть» (выбор заказчика 13.11): матовая шапка, подъём карточки, фон тёмных панелей */
-  --shadow-lift: 0 2px 4px rgba(15, 46, 44, 0.05), 0 28px 48px -24px rgba(15, 46, 44, 0.34);
-  --glass: rgba(255, 255, 255, 0.72);
-  --glass-rule: rgba(15, 46, 44, 0.08);
-  --why-bg: linear-gradient(160deg, var(--color-navy) 0%, var(--color-navy-2) 100%);
+  /* Подъём карточки, шапка, фон синих панелей */
+  --shadow-lift: 0 14px 28px -18px rgba(0, 38, 77, 0.35);
+  --glass: #FFFFFF;
+  --glass-rule: var(--color-rule);
+  --why-bg: var(--grad-blue-left);
 }
 @media (max-width: 90rem) { :root { --gutter: 40px; } }
-@media (max-width: 40rem) { :root { --radius-card: 18px; --radius-card-s: 18px; } }
+@media (max-width: 40rem) { :root { --radius-card: 16px; --radius-card-s: 16px; } }

@@ -1,71 +1,147 @@
-/* Оформление «Свежесть» (выбор заказчика 13.11), слой правил поверх site.css. Значения цветов, шрифтов и радиусов в tokens.css.
-   Префикс :root держит ту же специфичность, что была у [data-theme="fresh"], поэтому порядок применения не изменился.
-   Доработано по taste skill и принципам Apple: один шрифт, капсулы, матовая шапка, отдельные карточки, мягкая глубина. */
+/* Оформление по atatrade.by (14.11), слой правил поверх site.css. Значения цветов, шрифтов и радиусов в tokens.css.
+   Файл подключается раньше правил site.css, поэтому префикс :root поднимает специфичность над ними.
+   Что перенесено с atatrade: заголовки прописными в синем, кнопки-капсулы с круглой стрелкой, плоские панели
+   с тонкой рамкой, синий радиальный фон баннера и призыва, светлый подвал с крупным словом.
+   Прежнее оформление «Свежесть»: .backup/theme-2026-11-14-before-ata.css. */
 
-/* ---------- Кнопка призыва, карточки, иконки, панели ---------- */
-:root .cut { corner-shape: round; }
-:root .btn--primary { background: var(--color-cta); color: var(--color-cta-ink); box-shadow: var(--shadow-card); font-weight: 600; }
-:root .btn--primary:hover { background: var(--color-cta-2); }
-:root .pc { border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-card); }
-:root .label .ico { box-sizing: content-box; padding: var(--space-xs); border-radius: var(--radius-pill); background: var(--color-accent-wash); }
-:root .label:hover .ico { background: var(--color-cta); color: var(--color-cta-ink); }
-:root .why__lead { background: var(--why-bg); }
-:root .final { background: var(--bn-light); }
-:root .shelf__tabs [aria-selected="true"] { border-bottom-color: var(--color-cta); }
+/* ---------- Типографика ---------- */
+/* :where держит специфичность на уровне одного класса: свои цвета заголовков в site.css остаются главнее */
+:root :where(h1, h2) { color: var(--color-accent); text-transform: uppercase; line-height: 1.16; }
+:root :where(h3) { color: var(--color-accent); font-weight: 500; letter-spacing: 0; line-height: 1.25; }
+:root :where(.on-navy, .band--navy, .hero, .why__lead, .final) :where(h1, h2, h3) { color: inherit; }
+:root :is(.pc__title, .perks b, .mega__name) { font-weight: 600; letter-spacing: 0; }
+:root :is(.btn, .bn__cta, .link) { font-weight: 500; }
+:root .logo__word { font-weight: 700; letter-spacing: 0; }
+:root .lead { line-height: 1.6; color: var(--color-ink-2); }
+:root .head { margin-bottom: clamp(32px, 4vw, 52px); }
+:root .head__line { color: var(--color-muted); }
 
-/* ---------- Типографика, форма, глубина, движение ---------- */
-/* Типографика: один шрифт, плотная разрядка крупных строк */
-:root :is(.pc__title, .perks b, .mega__name) { font-weight: 600; letter-spacing: -0.015em; }
-:root :is(.btn, .bn__cta, .link) { font-weight: 600; }
-/* Табличные цифры Onest широкие, в цене карточки они разрежают число */
-:root .pc__price { font-variant-numeric: proportional-nums; letter-spacing: -0.02em; }
-:root .bn__title { max-width: 22ch; letter-spacing: -0.035em; line-height: 1.02; }
-
-/* Форма: все элементы управления капсулы, панели 28px */
+/* ---------- Кнопки: капсулы, у главных круглая стрелка справа ---------- */
 :root :is(.btn, .bn__cta, .icon-btn, .search__input, .search__btn) { border-radius: var(--radius-pill); }
-:root .search__input { padding-left: var(--space-lg); background: var(--color-surface); }
-:root .search__input:hover { border-color: var(--color-ink-2); }
+:root .btn { min-height: 52px; font-size: 0.96875rem; letter-spacing: 0; }
+:root .btn--s { min-height: 44px; font-size: var(--text-sm); }
+:root .btn--primary { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-accent-ink); box-shadow: none; }
+:root .btn--primary:hover { background: var(--color-accent-2); border-color: var(--color-accent-2); }
+:root .btn--navy { background: var(--color-accent); color: var(--color-accent-ink); }
+:root .btn--navy:hover { background: var(--color-accent-2); }
+:root .btn--quiet { background: var(--color-surface); border-color: var(--color-rule-2); color: var(--color-accent); }
+:root .btn--quiet:hover { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-accent-ink); }
+:root .btn--light { background: var(--color-surface); color: var(--color-accent); }
+:root .btn--light:hover { background: var(--color-accent-wash); }
+:root .btn--on-navy { border-color: var(--on-navy-rule); color: var(--color-navy-ink); }
+:root .btn--on-navy:hover { background: var(--color-surface); border-color: var(--color-surface); color: var(--color-accent); }
+:root .icon-btn { border-color: var(--color-rule-2); color: var(--color-accent); }
+:root .icon-btn:hover { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-accent-ink); }
+:root .icon-btn--navy { border-color: var(--on-navy-rule); color: var(--color-navy-ink); }
+:root .icon-btn--navy:hover { background: var(--color-surface); border-color: var(--color-surface); color: var(--color-accent); }
 
-/* Шапка из матового стекла. Это приближение материалов Apple средствами CSS (backdrop-filter), не официальный Liquid Glass */
-@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  :root .mast { background: var(--glass); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); border-bottom-color: var(--glass-rule); }
+/* Круглая стрелка: белый круг с синей стрелкой на синей кнопке (стрелка из Lucide, файлы в img/ico) */
+:root .btn--primary:not(.btn--s, .btn--wide), :root .bn__cta { gap: var(--space-md); padding: var(--space-2xs) var(--space-2xs) var(--space-2xs) var(--space-lg); }
+:root .btn--primary:not(.btn--s, .btn--wide)::after, :root .bn__cta::after { content: ""; flex: none; width: 44px; height: 44px; border-radius: 50%; background: var(--color-surface) url("../img/ico/arrow-right-accent.svg") center / 17px no-repeat; transition: transform 0.35s var(--ease-out); }
+:root .pc__actions .btn.btn--primary { gap: var(--space-xs); padding: 0 var(--space-sm); }
+:root .pc__actions .btn.btn--primary::after { content: none; }
+@media (hover: hover) {
+  :root .btn--primary:not(.btn--s, .btn--wide):hover::after, :root .bn:hover .bn__cta::after { transform: translateX(3px); }
 }
-@media (prefers-reduced-transparency: reduce) {
-  :root .mast { background: var(--color-surface); -webkit-backdrop-filter: none; backdrop-filter: none; }
-}
 
-/* Глубина: товары отдельными карточками на нейтральной бумаге */
-:root .pc { border-color: transparent; }
-:root .pc__media { border-bottom: 0; }
-:root .pc__actions .btn--quiet { border-color: transparent; background: var(--color-accent-wash); color: var(--color-accent-2); }
-:root .pc__actions .btn--quiet:hover { background: var(--color-cta); color: var(--color-cta-ink); }
+/* ---------- Шапка ---------- */
+:root .mast { background: var(--color-surface); border-bottom-color: var(--color-rule); }
+:root .search__input { padding-left: var(--space-lg); border-color: var(--color-field); background: var(--color-surface); }
+:root .search__input:hover { border-color: var(--color-accent); }
+:root .search__btn { color: var(--color-accent); }
+:root .search__btn:hover { background: var(--color-accent-wash); }
+:root .lang a[aria-current] { background: var(--on-navy-wash); }
+:root .lang--dark a[aria-current] { background: var(--color-accent-wash); color: var(--color-accent); }
 
-/* Преимущества: плитки с иконкой на тонированной подложке, без линии под каждой строкой */
+/* ---------- Баннер: синий радиальный фон, заголовок прописными, белая капсула ---------- */
+:root .bn__title { max-width: 24ch; font-size: clamp(1.625rem, 2.9cqi, 2.875rem); text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1.14; }
+:root .bn__lead { line-height: 1.6; }
+:root .bn__cta { min-height: 52px; background: var(--color-surface); color: var(--color-accent); font-size: 0.96875rem; box-shadow: none; }
+:root .bn .bn__cta::after { background: var(--color-accent) url("../img/ico/arrow-right-white.svg") center / 17px no-repeat; }
+:root .bn:hover .bn__cta { background: var(--color-surface); }
+:root .bn--light .bn__cta, :root .bn--light:hover .bn__cta { background: var(--color-accent); color: var(--color-accent-ink); }
+:root .bn--light .bn__cta::after { background: var(--color-surface) url("../img/ico/arrow-right-accent.svg") center / 17px no-repeat; }
+
+/* ---------- Подбор по площади и ярлыки разделов ---------- */
+:root .cut { corner-shape: round; }
+:root .picker { border: 1px solid var(--color-rule-2); box-shadow: none; }
+:root .label .ico { box-sizing: content-box; padding: var(--space-xs); border: 1px solid var(--color-rule-2); border-radius: 50%; background: var(--color-surface); transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out); }
+:root .label:hover { background: none; color: var(--color-accent); }
+:root .label:hover .ico { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-accent-ink); }
+:root .shelf__tabs button[aria-selected="true"] { color: var(--color-accent); border-bottom-color: var(--color-accent); }
+
+/* ---------- Карточка товара: тонкая рамка, холодная подложка фото, название синим ---------- */
+:root .pc { border-color: var(--color-rule-2); border-radius: var(--radius-card); box-shadow: none; overflow: hidden; }
+:root .pc:hover { border-color: var(--color-accent); }
+:root .pc__media { border-bottom: 0; background: var(--color-paper-2); }
+:root .pc__title { font-size: 1rem; line-height: 1.35; }
+:root .pc__title a { color: var(--color-accent); }
+:root .pc__title a:hover { color: var(--color-accent-2); }
+:root .pc__price { font-weight: 700; letter-spacing: 0; }
+:root .pc__actions .btn { min-height: 44px; }
+:root .tag--popular { background: var(--color-accent); }
+
+/* ---------- Преимущества: синяя панель и плитки с рамкой ---------- */
+:root .why__lead { background: var(--why-bg); }
+:root .why__big { font-weight: 700; letter-spacing: 0; }
+:root .why__big small { color: var(--color-navy-muted); }
+:root .band--navy { background: var(--grad-blue-left); }
+:root .supply h2 { font-size: clamp(1.5rem, 1.6vw + 0.5rem, 2.125rem); }
 :root .perks { gap: var(--space-md); border-bottom: 0; }
-:root .perks li { grid-template-columns: minmax(0, 1fr); align-content: start; gap: var(--space-sm); padding: var(--space-lg); border-top: 0; border-radius: var(--radius-card); background: var(--color-surface); box-shadow: var(--shadow-card); }
-:root .perks .ico { box-sizing: content-box; margin-top: 0; padding: var(--space-xs); border-radius: var(--radius-chip); background: var(--color-accent-wash); }
+:root .perks li { grid-template-columns: minmax(0, 1fr); align-content: start; gap: var(--space-sm); padding: var(--space-lg); border: 1px solid var(--color-rule-2); border-radius: var(--radius-card); background: var(--color-surface); }
+:root .perks .ico { box-sizing: content-box; margin-top: 0; padding: var(--space-sm); border: 1px solid var(--color-rule-2); border-radius: 50%; }
+:root .perks b { color: var(--color-accent); font-size: 1.0625rem; font-weight: 500; }
 :root .supply__list { gap: var(--space-sm); }
 :root .supply__list li { padding-bottom: 0; border-bottom: 0; }
-:root .supply__list .ico { box-sizing: content-box; padding: var(--space-2xs); border-radius: var(--radius-pill); background: var(--color-cta); color: var(--color-cta-ink); }
+:root .supply__list .ico { box-sizing: content-box; padding: var(--space-2xs); border-radius: 50%; background: var(--color-accent); color: var(--color-accent-ink); }
 :root .marquee__set a { border-right-color: transparent; }
-:root :is(.kzmap__pin:hover, .kzmap__pin.is-active) .kzmap__dot { fill: var(--color-cta); stroke: var(--color-cta-ink); stroke-width: 2; }
-:root .foot__socials a { border-radius: var(--radius-pill); }
+:root :is(.kzmap__pin:hover, .kzmap__pin.is-active) .kzmap__dot { fill: var(--color-accent); stroke: var(--color-surface); stroke-width: 2; }
+:root .geo__name { color: var(--color-accent); font-weight: 500; }
 
-/* Непрерывные углы, как у Apple. Squircle визуально срезает радиус, поэтому радиус больше */
-@supports (corner-shape: squircle) {
-  :root :is(.cut, .perks li, .pc) { corner-shape: squircle; border-radius: calc(var(--radius-card) * 1.6); }
+/* ---------- Выбранное состояние и наведение: синий вместо тёмных чернил ---------- */
+:root :is(.fig, .geo__panel) { border-top-color: var(--color-accent); }
+:root :is(.geo__city:hover, .subnav a:hover, .chip:hover span, a.chip:hover, .pager__btn:hover, .gallery__thumb:hover, .select .input:hover, .check:hover .check__box) { border-color: var(--color-accent); }
+:root :is(.geo__city.is-active, .subnav a[aria-current], .chip input:checked + span, .chip--on, .toolbar__view .is-on, .pager__btn.is-on) { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-accent-ink); }
+:root .buy { border: 1px solid var(--color-rule-2); box-shadow: none; }
+:root :is(.chip input:checked + span, .chip--on) { background: var(--color-accent) !important; border-color: var(--color-accent) !important; color: var(--color-accent-ink) !important; }
+:root .dir__title { color: var(--color-accent); font-weight: 500; }
+
+/* ---------- Призыв: синяя панель с белым текстом, как блок заявки у atatrade ---------- */
+:root .final { background: var(--grad-blue-left); color: var(--color-navy-ink); }
+:root .final__lead { color: var(--bn-deep-ink-2); }
+:root .final :focus-visible { outline-color: var(--color-focus-dark); }
+:root .final .btn--primary { background: var(--color-surface); border-color: var(--color-surface); color: var(--color-accent); }
+:root .final .btn--primary:hover { background: var(--color-accent-wash); border-color: var(--color-accent-wash); }
+:root .final .btn--quiet { background: transparent; border-color: var(--on-navy-rule); color: var(--color-navy-ink); }
+:root .final .btn--quiet:hover { background: var(--color-surface); border-color: var(--color-surface); color: var(--color-accent); }
+
+/* ---------- Подвал: светлый, синие заголовки колонок, крупное слово внизу ---------- */
+:root .foot { position: relative; overflow: hidden; background: var(--color-paper-2); color: var(--color-ink-2); }
+:root .foot :focus-visible { outline-color: var(--color-focus); }
+:root .foot a { color: var(--color-ink-2); }
+:root .foot a:hover { color: var(--color-accent); }
+:root .foot__title, :root .foot__title a { color: var(--color-accent); font-size: 1.0625rem; font-weight: 700; }
+:root :is(.foot__about, .foot__col li a, .foot__col li span, .foot__store a, .foot__legal, .foot__legal a, .foot__credits, .foot__credits a) { color: var(--color-muted); }
+:root :is(.foot__col li a, .foot__store a, .foot__legal a, .foot__credits a):hover { color: var(--color-accent); }
+:root :is(.foot__store, .foot__legal) { border-top-color: var(--color-rule); }
+:root .foot__credits a { text-decoration-color: var(--color-rule-2); }
+:root .foot .logo--navy { color: var(--color-ink); }
+:root .foot .logo--navy :is(.logo__mark, .logo__pro) { color: var(--color-accent); }
+:root .foot .logo--navy .logo__tag { color: var(--color-muted); }
+:root .foot__socials a { border-radius: 50%; background: var(--color-surface); border-color: var(--color-rule-2); color: var(--color-accent); }
+:root .foot__socials a:hover { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-accent-ink); }
+:root .foot__contact .ico { color: var(--color-accent); }
+:root .foot::after { content: "Split Comfort"; content: "Split Comfort" / ""; display: block; margin: var(--space-xl) 0 -0.17em; color: var(--color-watermark); font-family: var(--font-display); font-size: clamp(2.25rem, 9.6vw, 9.75rem); font-weight: 900; line-height: 0.8; letter-spacing: 0.01em; text-align: center; text-transform: uppercase; white-space: nowrap; pointer-events: none; user-select: none; }
+@media (min-width: 60.01rem) {
+  :root .foot__grid > .foot__col { padding-left: var(--gap-columns); border-left: 1px solid var(--color-rule); }
 }
 
-/* Движение: отклик на нажатие, подъём карточки под курсором, одно появление при прокрутке */
+/* ---------- Движение: отклик на нажатие и одно появление при прокрутке ---------- */
 @media (prefers-reduced-motion: no-preference) {
   :root :is(.btn, .bn__cta, .icon-btn, .bn-circ):active { transform: scale(0.97); }
-  :root .pc { transition: transform var(--dur-long) var(--ease-out), box-shadow var(--dur-long) var(--ease-out); }
-  @media (hover: hover) {
-    :root .pc:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
-  }
-  /* Появление при прокрутке без JS: таймлайн просмотра, только translate и scale, содержимое видно всегда */
+  /* Появление при прокрутке без JS: таймлайн просмотра, только сдвиг, содержимое видно всегда */
   @supports (animation-timeline: view()) {
-    :root :is(.pgrid > .pc, .why__lead, .perks li, .supply__pic, .final) { animation: fresh-rise linear both; animation-timeline: view(); animation-range: entry 0% entry 55%; }
+    :root :is(.pgrid > .pc, .why__lead, .perks li, .supply__pic, .final) { animation: ata-rise linear both; animation-timeline: view(); animation-range: entry 0% entry 55%; }
   }
 }
-@keyframes fresh-rise { from { translate: 0 40px; scale: 0.97; } to { translate: 0 0; scale: 1; } }
+@keyframes ata-rise { from { translate: 0 28px; } to { translate: 0 0; } }

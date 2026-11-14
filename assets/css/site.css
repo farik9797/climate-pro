@@ -1,5 +1,5 @@
-/* Hallmark · shape: Catalogue Hub, 14 блоков по брифу · genre: modern-minimal · theme: brand (spec 2026-11-09, макеты заказчика), оформление «Свежесть» выбрано 13.11
- * paper: #F3F7F6 · accent: #0B7A72, призыв #B8F23A · display: Onest · body: Onest · hero: Banner · nav: двухъярусная, полоса разделов над строкой каталога и большого поиска · footer: index columns · signature: подбор по площади, м² в модель и цену монтажа
+/* Hallmark · shape: Catalogue Hub, 14 блоков по брифу · genre: modern-minimal · theme: brand (spec 2026-11-09, макеты заказчика), оформление по atatrade.by 14.11
+ * paper: #FFFFFF · accent: #0A5FA8, призыв #0A5FA8 · display: Golos Text · body: Golos Text · hero: Banner · nav: двухъярусная, полоса разделов над строкой каталога и большого поиска · footer: index columns · signature: подбор по площади, м² в модель и цену монтажа
  * axes: light/geometric-sans/cool · posture: restrained · contrast: pass · fold: pass · job: buy · copy: verbatim · imagery: товарные фото Almacom, сцены Commons 8 в слотах · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V4 · weakest: P, каталог B2B тянет к шаблону магазина; спор ведёт подбор по площади и карта складов из реальной геометрии */
 /* Hallmark · waive 59 · gaps 96 to 144 varied, four paper changes · Split Comfort catalog runs 14 blocks and the client brief forbids large empty gaps between them */
@@ -21,9 +21,9 @@
 /* Hallmark · answered F7 · the pill radius sits on controls only: buttons, the search field, slider controls and the round grounds of the category label icons, which are links */
 /* Hallmark · answered F4 · Split Comfort header carries no action buttons by the client brief 11.11, cobalt fills only the banner action, the catalog action and the area picker result */
 /* Hallmark · waive 29 · frosted glass on the sticky header · the client asked for an Apple-like finish, the header blurs the catalog under it and turns solid under prefers-reduced-transparency */
-@import url("./tokens.css?v=cc9c601e84");
-@import url("./base.css?v=cc9c601e84");
-@import url("./theme.css?v=cc9c601e84");
+@import url("./tokens.css?v=a5433fdda6");
+@import url("./base.css?v=a5433fdda6");
+@import url("./theme.css?v=a5433fdda6");
 
 /* ------- Основа ------- */
 body { background: var(--color-paper); }
